@@ -1,4 +1,4 @@
-module github.com/abdfnx/rest-it
+module github.com/abdfnx/resto
 
 go 1.17
 
