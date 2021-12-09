@@ -1,0 +1,61 @@
+filetype: gdscript
+
+detect:
+    filename: "\\.gd$"
+
+rules:
+    # Built-in constants
+    - constant: "\\b(INF|NAN|PI|TAU)\\b"
+    - constant.bool: "\\b(null|true|false)\\b"
+    # Built-in functions
+    - identifier: "\\b(abs|acos|asin|atan|atan2|ceil|clamp|convert|cos|cosh|db2linear|decimals|deg2rad|ease|exp|float|floor|fmod|fposmod|hash|int|isinf|isnan|lerp|linear2db|load|log|max|min|nearest_po2|pow|preload|print|printerr|printraw|prints|printt|rad2deg|rand_range|rand_seed|randomize|randi|randf|range|round|seed|sin|slerp|sqrt|str|str2var|tan|typeof|var2str|weakref)\\b"
+    # Built-in node names
+    - identifier: "\\b(AnimationPlayer|AnimationTreePlayer|Button|Control|Engine|HTTPClient|HTTPRequest|Input|InputEvent|MainLoop|Node|Node2D|OS|SceneTree|Spatial|StreamPeer|PacketPeer|PacketPeerUDP|Timer|Tween)\\b"
+    # Types
+    - type: "\\b(AABB|Array|Basis|Color|Dictionary|NodePath|Object|Plane|PoolByteArray|PoolColorArray|PoolIntArray|PoolRealArray|PoolVector2Array|PoolVector3Array|Quat|Rect2|RID|String|Transform|Transform2D|Vector2|Vector3)\\b"
+    # Definitions
+    - identifier: "func [a-zA-Z_0-9]+"
+    # Keywords
+    - statement: "\\b(and|as|assert|break|breakpoint|class|const|continue|elif|else|enum|export|extends|for|func|if|in|is|map|master|mastersync|match|not|onready|or|pass|remote|remotesync|return|self|setget|slave|slavesync|signal|sync|tool|var|while|yield)\\b"
+
+    # Operators
+    - statement: "[.:;,+*|=!\\%@]|<|>|/|-|&"
+
+    # Parentheses
+    - statement: "[(){}]|\\[|\\]"
+
+    # Numbers
+    - constant: "\\b[0-9]+\\b"
+    - constant.number: "\\b([0-9]+|0x[0-9a-fA-F]*)\\b|'.'"
+
+    - comment:
+        start: "\"\"\""
+        end: "\"\"\""
+        rules:
+            - todo: "(TODO|XXX|FIXME):?"
+
+    - comment:
+        start: "'''"
+        end: "'''"
+        rules:
+            - todo: "(TODO|XXX|FIXME):?"
+
+    - constant.string:
+        start: "\""
+        end: "\""
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\([0-7]{3}|x[A-Fa-f0-9]{2}|u[A-Fa-f0-9]{4}|U[A-Fa-f0-9]{8})"
+
+    - constant.string:
+        start: "'"
+        end: "'"
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\([0-7]{3}|x[A-Fa-f0-9]{2}|u[A-Fa-f0-9]{4}|U[A-Fa-f0-9]{8})"
+
+    - comment:
+        start: "#"
+        end: "$"
+        rules:
+            - todo: "(TODO|XXX|FIXME):?"

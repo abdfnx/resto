@@ -1,0 +1,25 @@
+filetype: git-commit
+
+detect:
+    filename: "^(.*[\\/])?(COMMIT_EDITMSG|TAG_EDITMSG)$"
+
+rules:
+    # File changes
+    - type.keyword: "#[[:space:]](deleted|modified|new file|renamed):[[:space:]].*"
+    - type.keyword: "#[[:space:]]deleted:"
+    - type.keyword: "#[[:space:]]modified:"
+    - type.keyword: "#[[:space:]]new file:"
+    - type.keyword: "#[[:space:]]renamed:"
+    - type.keyword: "^#[[:space:]]Changes.*[:]"
+    - type.keyword: "^#[[:space:]]Your branch and '[^']+"
+    - type.keyword: "^#[[:space:]]Your branch and '"
+    - type.keyword: "^#[[:space:]]On branch [^ ]+"
+    - type.keyword: "^#[[:space:]]On branch"
+    # Color keywords for closing issues (such as on Github)
+    - type.keyword: "\\b(?i)((fix(es|ed)?|close(s|d)?) #[0-9]+)\\b"
+
+    # Comments
+    - comment.line:
+        start: "^#"
+        end: "$"
+        rules: []

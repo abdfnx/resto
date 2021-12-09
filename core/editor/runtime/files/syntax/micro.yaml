@@ -1,0 +1,34 @@
+filetype: micro
+
+detect:
+    filename: "\\.(micro)$"
+
+rules:
+    - statement: "\\b(syntax|color(-link)?)\\b"
+    - statement: "\\b(start=|end=)\\b"
+    # Simple one-liners
+    - identifier: "\\b(default|number|statement|underlined|error|todo|statusline|indent-char|cursor\\-line|color\\-column|ignore|divider|tabbar)\\b"
+    # Separate identifiers to keep "complex" regex clean
+    - identifier: "\\b(special(Char)?)\\b"
+    - identifier: "\\b((current\\-)?line\\-number)\\b"
+    - identifier: "\\b(gutter\\-(info|error|warning){1})\\b"
+    - identifier: "\\b(comment(\\.bright)?)\\b"
+    - identifier: "\\b(symbol(\\.(brackets|operator|tag))?)\\b"
+    - identifier: "\\b(identifier(\\.(class|macro|var))?)\\b"
+    - identifier: "\\b(constant(\\.(bool(\\.(true|false){1})?|number|specialChar|string(\\.url)?){1})?)\\b"
+    - identifier: "\\b(preproc(\\.shebang)?)\\b"
+    - identifier: "\\b(type(\\.keyword)?)\\b"
+    - constant.number: "\\b(|h|A|0x)+[0-9]+(|h|A)+\\b"
+    - constant.number: "\\b0x[0-9 a-f A-F]+\\b"
+    - comment:
+        start: "#"
+        end: "$"
+        rules:
+          - todo: "(FIXME|TODO|NOTE):?"
+    - constant.string:
+        start: "\""
+        end: "\""
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\."
+    - constant.number: "#[0-9 A-F a-f]+"
