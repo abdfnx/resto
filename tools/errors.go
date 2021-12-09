@@ -1,9 +1,14 @@
 package tools
 
 import (
+	"fmt"
+	"io"
+	"net"
+	"strings"
 	"errors"
 
 	"github.com/AlecAivazis/survey/v2/terminal"
+	"github.com/spf13/cobra"
 )
 
 // FlagError is the kind of error raised in flag processing
@@ -43,4 +48,29 @@ func MutuallyExclusive(message string, conditions ...bool) error {
 	}
 
 	return nil
+}
+
+func PrintError(out io.Writer, err error, cmd *cobra.Command, debug bool) {
+	var dnsError *net.DNSError
+
+	if errors.As(err, &dnsError) {
+		fmt.Fprintf(out, "error connecting to %s\n", dnsError.Name)
+
+		if debug {
+			fmt.Fprintln(out, dnsError)
+		}
+
+		return
+	}
+
+	fmt.Fprintln(out, err)
+
+	var flagError *FlagError
+	if errors.As(err, &flagError) || strings.HasPrefix(err.Error(), "unknown command ") {
+		if !strings.HasSuffix(err.Error(), "\n") {
+			fmt.Fprintln(out)
+		}
+
+		fmt.Fprintln(out, cmd.UsageString())
+	}
 }

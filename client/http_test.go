@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func httpClientTest(t *testing.T) {
+func HttpClientTest(t *testing.T) {
 	t.Run("default http client", func(t *testing.T) {
 		client := httpClient()
 		if client == nil {

@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func checkURL(urlStr string) (string, error) {
+func CheckURL(urlStr string) (string, error) {
 	if urlStr == "" {
 		return "", fmt.Errorf("URL is needed\n")
 	}

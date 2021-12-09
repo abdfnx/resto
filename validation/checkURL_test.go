@@ -34,9 +34,9 @@ var checkURLCases = []struct {
 	},
 }
 
-func checkURLTest(t *testing.T) {
+func CheckURLTest(t *testing.T) {
 	for _, tt := range checkURLCases {
-		out, err := checkURL(tt.url)
+		out, err := CheckURL(tt.url)
 		if err != nil && !tt.expectErr {
 			t.Errorf("%s :: %s", tt.name, err.Error())
 		}

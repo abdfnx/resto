@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func httpClient() *http.Client {
+func HttpClient() *http.Client {
 	return &http.Client{
 		Timeout: 10 * time.Second,
 	}
