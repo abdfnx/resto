@@ -20,7 +20,7 @@ func HeadCMD() *cobra.Command {
 	}
 
 	cmd := &cobra.Command{
-		Use:   "head",
+		Use:   "head <url> [flags]",
 		Short: "Send a HEAD request",
 		Long:  `Send a HEAD request to a URL.`,
 		RunE: func(cmd *cobra.Command, args []string) error {

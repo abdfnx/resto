@@ -4,6 +4,7 @@ import (
 	"github.com/abdfnx/resto/tools"
 	"github.com/abdfnx/resto/core/layout"
 	"github.com/abdfnx/resto/cmd/factory"
+	"github.com/abdfnx/resto/cli/commands"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
@@ -22,10 +23,23 @@ func Execute(f *factory.Factory) *cobra.Command {
 		Long: desc,
 		SilenceErrors: true,
 		Example: heredoc.Doc(`
+			# Open Resto UI
 			resto
+
+			# Send a GET request to a URL
 			resto get https://api.github.com
-			cat schema.graphql | resto post https://api.spacex.land/graphql --body-stdin
-			resto delete https://api.secman.dev/api/logins/13 -t XXXX
+
+			# Send a POST request to a URL and use resto editor
+			resto post https://api.xcode.codes --content-type json --editor
+
+			# Read Body from stdin
+			cat schema.graphql | resto post https://api.spacex.land/graphql --content-type graphql --body-stdin
+
+			# Use Authentecation with Basic Auth or Bearer Token
+			resto delete https://api.secman.dev/api/logins/13 --content-type json --token XXXX
+
+			# Save response to a file
+			resto get http://localhost:3333/api/v1/hello --save response.json
 		`),
 		Annotations: map[string]string{
 			"help:tellus": heredoc.Doc(`
@@ -50,6 +64,16 @@ func Execute(f *factory.Factory) *cobra.Command {
 	rootCmd.SetHelpFunc(helpHelper)
 	rootCmd.SetUsageFunc(rootUsageFunc)
 	rootCmd.SetFlagErrorFunc(rootFlagErrorFunc)
+
+	// Add sub-commands to root command
+	rootCmd.AddCommand(
+		commands.GetCMD(),
+	    commands.PostCMD(),
+		commands.PutCMD(),
+		commands.PatchCMD(),
+		commands.DeleteCMD(),
+		commands.HeadCMD(),
+	)
 
 	return rootCmd
 }

@@ -20,7 +20,7 @@ func GetCMD() *cobra.Command {
 	}
 
 	cmd := &cobra.Command{
-		Use:   "get",
+		Use:   "get <url> [flags]",
 		Short: "Send a GET request",
 		Long:  `Send a GET request to a URL.`,
 		RunE: func(cmd *cobra.Command, args []string) error {

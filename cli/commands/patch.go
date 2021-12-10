@@ -24,7 +24,7 @@ func PatchCMD() *cobra.Command {
 	}
 
 	cmd := &cobra.Command{
-		Use:   "patch",
+		Use:   "patch <url> [flags]",
 		Short: "Send a PATCH request",
 		Long:  `Send a PATCH request to a given URL with a given body`,
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -41,7 +41,7 @@ func PatchCMD() *cobra.Command {
 	cmd.Flags().StringVarP(&opts.Method.AuthType.BasicAuthPassword, "password", "p", "", "The password to use for basic authentication")
 	cmd.Flags().BoolVarP(&opts.Method.JustShowBody, "just-body", "j", false, "Just show the response body")
 	cmd.Flags().BoolVarP(&opts.Method.JustShowHeaders, "headers", "H", false, "Just show the response headers")
-	cmd.Flags().StringVarP(&opts.Method.SaveFile, "save-file", "s", "", "Save the response to a file")
+	cmd.Flags().StringVarP(&opts.Method.SaveFile, "save", "s", "", "Save the response to a file")
 	cmd.Flags().StringVarP(&opts.Method.ContentType, "content-type", "c", "", "The content type of the body")
 	cmd.Flags().StringVarP(&opts.Method.Body, "body", "b", "", "The body of the request")
 	cmd.Flags().BoolVarP(&opts.Method.OpenEditor, "editor", "e", false, "Open the editor to edit the body")
