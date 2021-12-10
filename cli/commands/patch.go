@@ -36,11 +36,11 @@ func PatchCMD() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().StringVarP(&opts.Method.AuthType.TokenAuth, "token", "t", "", "The token to use for authentication")
+	cmd.Flags().StringVarP(&opts.Method.AuthType.TokenAuth, "token", "t", "", "The bearer token to use for authentication")
 	cmd.Flags().StringVarP(&opts.Method.AuthType.BasicAuthUsername, "username", "u", "", "The username to use for basic authentication")
 	cmd.Flags().StringVarP(&opts.Method.AuthType.BasicAuthPassword, "password", "p", "", "The password to use for basic authentication")
-	cmd.Flags().BoolVarP(&opts.Method.JustShowBody, "just-body", "j", false, "Just show the body")
-	cmd.Flags().BoolVarP(&opts.Method.JustShowHeaders, "headers", "H", false, "Just show the headers")
+	cmd.Flags().BoolVarP(&opts.Method.JustShowBody, "just-body", "j", false, "Just show the response body")
+	cmd.Flags().BoolVarP(&opts.Method.JustShowHeaders, "headers", "H", false, "Just show the response headers")
 	cmd.Flags().StringVarP(&opts.Method.SaveFile, "save-file", "s", "", "Save the response to a file")
 	cmd.Flags().StringVarP(&opts.Method.ContentType, "content-type", "c", "", "The content type of the body")
 	cmd.Flags().StringVarP(&opts.Method.Body, "body", "b", "", "The body of the request")

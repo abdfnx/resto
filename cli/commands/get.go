@@ -35,9 +35,9 @@ func GetCMD() *cobra.Command {
 	cmd.Flags().BoolVarP(&opts.Method.JustShowBody, "just-body", "j", false, "Just show the response body")
 	cmd.Flags().BoolVarP(&opts.Method.JustShowHeaders, "headers", "H", false, "Just show the response headers")
 	cmd.Flags().StringVarP(&opts.Method.SaveFile, "save", "s", "", "Save the response body to a file")
-	cmd.Flags().StringVarP(&opts.Method.AuthType.BasicAuthUsername, "username", "u", "", "Basic auth username")
-	cmd.Flags().StringVarP(&opts.Method.AuthType.BasicAuthPassword, "password", "p", "", "Basic auth password")
-	cmd.Flags().StringVarP(&opts.Method.AuthType.TokenAuth, "token", "t", "", "Use bearer token auth")
+	cmd.Flags().StringVarP(&opts.Method.AuthType.BasicAuthUsername, "username", "u", "", "The username to use for basic authentication")
+	cmd.Flags().StringVarP(&opts.Method.AuthType.BasicAuthPassword, "password", "p", "", "The password to use for basic authentication")
+	cmd.Flags().StringVarP(&opts.Method.AuthType.TokenAuth, "token", "t", "", "The bearer token to use for authentication")
 
 	return cmd
 }
