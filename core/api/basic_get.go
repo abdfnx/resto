@@ -16,6 +16,7 @@ func BasicGet(
 		bearerToken,
 		basicAuthUsername,
 		basicAuthPassword string,
+		isCommand bool,
 	) (string, string, string, error) {
 	var url, err = validation.CheckURL(httpURL)
 
@@ -44,5 +45,5 @@ func BasicGet(
 
 	defer res.Body.Close()
 
-	return formatResponse(res)
+	return formatResponse(res, isCommand)
 }

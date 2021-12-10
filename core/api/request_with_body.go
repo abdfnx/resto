@@ -30,6 +30,7 @@ func BasicRequestWithBody(
 		baererToken,
 		basicAuthUsername,
 		basicAuthPassword string,
+		isCommand bool,
 	) (string, string, string, error) {
 	url, err := validation.CheckURL(httpURL)
 
@@ -85,7 +86,12 @@ func BasicRequestWithBody(
 		statusTable.SetStyle(table.StyleRounded)
 
 		if string(jsonString) != "null" {
-			return prettyData, statusTable.Render(), " ", err
+			if isCommand {
+				colored := string(pretty.Color([]byte(prettyData), nil))
+				return colored, statusTable.Render(), " ", err
+			} else {
+				return prettyData, statusTable.Render(), " ", err
+			}
 		} else if string(jsonString) == "null" {
 			return string(jsonString), statusTable.Render(), "", err
 		} else {
@@ -117,6 +123,6 @@ func BasicRequestWithBody(
 
 		defer res.Body.Close()
 
-		return formatResponse(res)
+		return formatResponse(res, isCommand)
 	}
 }

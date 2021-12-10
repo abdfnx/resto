@@ -34,10 +34,6 @@ var (
 	requestHeaders  string
 )
 
-func saveBuffer(b *editor.Buffer, path string) error {
-	return ioutil.WriteFile(path, []byte(b.String()), 0600)
-}
-
 func Layout() {
 	app := tview.NewApplication()
 	flex := tview.NewFlex()
@@ -99,7 +95,7 @@ func Layout() {
 	bodyEditor.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		switch event.Key() {
 			case tcell.KeyCtrlS:
-				saveBuffer(buffer, fn)
+				tools.SaveBuffer(buffer, fn)
 				app.SetRoot(flex, true).SetFocus(requestForm)
 				return nil
 		}
@@ -198,6 +194,7 @@ func Layout() {
 					token.GetText(),
 					username.GetText(),
 					password.GetText(),
+					false,
 				)
 		} else {
 			body = ""
@@ -210,6 +207,7 @@ func Layout() {
 					token.GetText(),
 					username.GetText(),
 					password.GetText(),
+					false,
 				)
 		}
 

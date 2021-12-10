@@ -18,7 +18,7 @@ var (
 )
 
 // formatResponse formats the Response with Indents and Colors
-func formatResponse(resp *http.Response) (string, string, string, error) {
+func formatResponse(resp *http.Response, isCommand bool) (string, string, string, error) {
 	heads := fmt.Sprint(resp.Header)
 	toReturn := ""
 
@@ -51,7 +51,11 @@ func formatResponse(resp *http.Response) (string, string, string, error) {
 	}
 
 	if strings.Contains(heads, "json") {
-		toReturn = string(pretty.Pretty([]byte(str)))
+		if isCommand {
+			toReturn = string(pretty.Color(pretty.Pretty([]byte(str)), nil))
+		} else {
+			toReturn = string(pretty.Pretty([]byte(str)))
+		}
 	} else if strings.Contains(heads, "xml") || strings.Contains(heads, "html") || strings.Contains(heads, "plain") {
 		var s string
 
