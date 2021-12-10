@@ -1,4 +1,4 @@
-package editor
+package main
 
 import (
 	"fmt"

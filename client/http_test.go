@@ -7,7 +7,7 @@ import (
 
 func HttpClientTest(t *testing.T) {
 	t.Run("default http client", func(t *testing.T) {
-		client := httpClient()
+		client := HttpClient()
 		if client == nil {
 			t.Error("got nil http client")
 		}
