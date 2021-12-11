@@ -21,9 +21,6 @@ RUN $INS -y git && \
     rm -rf /var/lib/apt/lists/* && \
     $UPD
 
-### go ###
-COPY --from=golang:1.17-alpine /usr/local/go/ /usr/local/go/
-
 ### sudo ###
 RUN $UPD && $INS -y sudo && \
     adduser --disabled-password --gecos '' rs && \
@@ -33,6 +30,10 @@ RUN $UPD && $INS -y sudo && \
 ENV HOME="/home/rs"
 WORKDIR $HOME
 USER rs
+
+### go ###
+COPY --from=golang /usr/local/go/ /usr/local/go/
+ENV PATH="/usr/local/go/bin:${PATH}"
 
 ### resto ###
 RUN go install github.com/abdfnx/resto@latest
