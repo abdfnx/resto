@@ -10,8 +10,8 @@
 
   * Shell
 
-  ```bash
-  curl -fsSL https://git.io/resto
+  ```
+  curl -fsSL https://git.io/resto | bash
   ```
 
   * PowerShell
