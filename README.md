@@ -8,8 +8,16 @@
 
 1. Install it from script
 
+  * Shell
+
   ```bash
   curl -fsSL https://git.io/resto
+  ```
+
+  * PowerShell
+
+  ```
+  iwr https://git.io/resto-win | iex
   ```
 
 2. Go package manager

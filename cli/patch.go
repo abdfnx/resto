@@ -1,10 +1,10 @@
-package commands
+package cli
 
 import (
 	"github.com/spf13/cobra"
 )
 
-func DeleteCMD() *cobra.Command {
+func PatchCMD() *cobra.Command {
 	opts := Options{
 		Method: &Method{
 			AuthType: &Auth{
@@ -24,15 +24,15 @@ func DeleteCMD() *cobra.Command {
 	}
 
 	cmd := &cobra.Command{
-		Use:   "delete <url> [flags]",
-		Short: "Send a DELETE request",
-		Long:  `Send a DELETE request to a given URL with a given body`,
+		Use:   "patch <url> [flags]",
+		Short: "Send a PATCH request",
+		Long:  `Send a PATCH request to a given URL with a given body`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) > 0 {
 				opts.URL = args[0]
 			}
 
-			return runWithBody(&opts, "DELETE")
+			return runWithBody(&opts, "PATCH")
 		},
 	}
 

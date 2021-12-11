@@ -1,10 +1,10 @@
-package commands
+package cli
 
 import (
 	"github.com/spf13/cobra"
 )
 
-func PutCMD() *cobra.Command {
+func PostCMD() *cobra.Command {
 	opts := Options{
 		Method: &Method{
 			AuthType: &Auth{
@@ -24,15 +24,15 @@ func PutCMD() *cobra.Command {
 	}
 
 	cmd := &cobra.Command{
-		Use:   "put <url> [flags]",
-		Short: "Send a PUT request",
-		Long:  `Send a PUT request to a given URL with a given body`,
+		Use:   "post <url> [flags]",
+		Short: "Send a POST request",
+		Long:  `Send a POST request to a given URL with a given body`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) > 0 {
 				opts.URL = args[0]
 			}
 
-			return runWithBody(&opts, "PUT")
+			return runWithBody(&opts, "POST")
 		},
 	}
 

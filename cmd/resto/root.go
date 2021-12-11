@@ -4,7 +4,7 @@ import (
 	"github.com/abdfnx/resto/tools"
 	"github.com/abdfnx/resto/core/layout"
 	"github.com/abdfnx/resto/cmd/factory"
-	"github.com/abdfnx/resto/cli/commands"
+	"github.com/abdfnx/resto/cli"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
@@ -26,17 +26,17 @@ func Execute(f *factory.Factory) *cobra.Command {
 			# Open Resto UI
 			resto
 
-			# Send a GET request to a URL
+			# Send a request to a URL
 			resto get https://api.github.com
 
-			# Send a POST request to a URL and use resto editor
+			# Send a request to a URL and use resto editor
 			resto post https://api.xcode.codes --content-type json --editor
 
 			# Read Body from stdin
 			cat schema.graphql | resto post https://api.spacex.land/graphql --content-type graphql --body-stdin
 
 			# Use Authentecation with Basic Auth or Bearer Token
-			resto delete https://api.secman.dev/api/logins/13 --content-type json --token XXXX
+			resto delete https://api.secman.dev/api/logins/13 --content-type json --token TOKEN
 
 			# Save response to a file
 			resto get http://localhost:3333/api/v1/hello --save response.json
@@ -67,12 +67,12 @@ func Execute(f *factory.Factory) *cobra.Command {
 
 	// Add sub-commands to root command
 	rootCmd.AddCommand(
-		commands.GetCMD(),
-	    commands.PostCMD(),
-		commands.PutCMD(),
-		commands.PatchCMD(),
-		commands.DeleteCMD(),
-		commands.HeadCMD(),
+		cli.GetCMD(),
+	    cli.PostCMD(),
+		cli.PutCMD(),
+		cli.PatchCMD(),
+		cli.DeleteCMD(),
+		cli.HeadCMD(),
 	)
 
 	return rootCmd

@@ -1,4 +1,4 @@
-package commands
+package cli
 
 type Auth struct {
 	TokenAuth string
