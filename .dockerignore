@@ -1,0 +1,7 @@
+# build dirs
+dist
+
+# resto files
+*.exe
+*.exe~
+resto
