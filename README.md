@@ -1,4 +1,8 @@
-# Resto
+<h1 align="center">Resto</h1>
+
+<p align="center">
+  <img src="./.github/assets/logo.svg" height="150px" />
+</p>
 
 > CLI app can send pretty HTTP & API requests from your terminal with GUI.
 
@@ -6,27 +10,27 @@
 
 ## Installation
 
-1. Install it from script
+### Using script
 
-  * Shell
+* Shell
 
-  ```
-  curl -fsSL https://git.io/resto | bash
-  ```
+```
+curl -fsSL https://git.io/resto | bash
+```
 
-  * PowerShell
+* PowerShell
 
-  ```
-  iwr https://git.io/resto-win | iex
-  ```
+```
+iwr https://git.io/resto-win | iex
+```
 
-2. Go package manager
+### Go package manager
 
   ```bash
   go install github.com/abdfnx/resto@latest
   ```
 
-3. GitHub CLI
+### GitHub CLI
   
   ```bash
   gh extension install abdfnx/gh-resto

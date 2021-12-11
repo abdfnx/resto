@@ -1,0 +1,32 @@
+<svg width="608" height="794" viewBox="0 0 608 794" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#filter0_d_1810_134)">
+        <path d="M587.941 240V380L562.941 419L493.941 461L562.941 504L587.941 530V635L577.941 663L411.941 759H373.941L36.9414 563L20.9414 538V380L109.941 313L20.9414 250V117L190.941 16H230.941L568.941 213L587.941 240Z" fill="#005FFF" />
+        <path d="M208.941 514L456.941 663L396.941 698L208.941 590V514Z" fill="white" />
+        <path d="M522.941 259V370L462.941 402V224L522.941 259Z" fill="white" />
+        <path d="M396.941 187V259L143.941 111L209.941 76L396.941 187Z" fill="white" />
+        <path d="M80.9414 150L230.941 240L172.941 278L80.9414 224V150Z" fill="white" />
+        <path d="M396.941 335V442L302.941 497L209.941 442V329L302.941 278L396.941 335Z" fill="white" />
+        <path d="M143.941 370V552L80.9414 515V402L143.941 370Z" fill="white" />
+        <path d="M522.941 553V626L368.941 538L428.941 497L522.941 553Z" fill="white" />
+        <ellipse cx="210.941" cy="30" rx="20" ry="29" transform="rotate(90 210.941 30)" fill="#005FFF" />
+        <path d="M23.9414 546C17.9414 535 20.8689 518.315 30.9414 513.781C41.0139 509.248 53.4653 517.622 60.0389 532.227C66.6125 546.832 63.776 562.347 53.7036 566.88C43.6311 571.414 31.7065 560.236 23.9414 546Z" fill="#005FFF" />
+        <ellipse cx="569.941" cy="636" rx="30" ry="18" transform="rotate(90 569.941 636)" fill="#005FFF" />
+        <path d="M557.941 420C545.239 420 540.941 398.569 540.941 382C540.941 365.431 551.239 352 563.941 352C576.644 352 587.941 365.431 587.941 382C587.941 398.569 570.644 420 557.941 420Z" fill="#005FFF" />
+        <path d="M562.942 548.99C549.134 548.99 537.942 540.484 537.942 529.99C537.942 519.497 539.134 502 552.941 502C566.749 502 587.941 518.507 587.941 529C587.941 539.493 576.749 548.99 562.942 548.99Z" fill="#005FFF" />
+        <path d="M562.942 254.99C549.134 254.99 537.942 246.484 537.942 235.99C537.942 225.497 539.134 208 552.941 208C566.749 208 587.941 224.507 587.941 235C587.941 245.493 576.749 254.99 562.942 254.99Z" fill="#005FFF" />
+        <ellipse cx="392.941" cy="744" rx="20" ry="29" transform="rotate(90 392.941 744)" fill="#005FFF" />
+    </g>
+    <defs>
+        <filter id="filter0_d_1810_134" x="0.847656" y="0" width="607.094" height="794" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+            <feOffset dy="10" />
+            <feGaussianBlur stdDeviation="10" />
+            <feComposite in2="hardAlpha" operator="out" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1810_134" />
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1810_134" result="shape" />
+        </filter>
+    </defs>
+</svg>
+    
