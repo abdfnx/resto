@@ -37,6 +37,33 @@ var (
 func Layout() {
 	app := tview.NewApplication()
 	flex := tview.NewFlex()
+	helpPage := tview.NewPages()
+	helpText := tview.NewTextView().
+		SetDynamicColors(true).
+		SetRegions(true).
+		SetChangedFunc(func() {
+			app.Draw()
+		})
+
+	help := `
+		Welcome to Resto!
+
+		resto is a cli app can send pretty HTTP & API requests from your terminal.
+
+		Shortcuts:
+			- Ctrl+P: Open Renio Panel
+			- Ctrl+H: Open Help Guide
+			- Ctrl+S: Save Request Body
+			- Ctrl+Q: Quit			
+	`
+
+	fmt.Fprintf(helpText, "%s ", help)
+
+	helpPage.AddAndSwitchToPage("help", tview.NewGrid().
+		SetColumns(30, 0, 30).
+		SetRows(3, 0, 3).
+		AddItem(helpText, 1, 1, 1, 1, 0, 0, true), true).
+	ShowPage("main")
 
 	// forms
 	authForm := tview.NewForm()
@@ -261,6 +288,12 @@ func Layout() {
 			}
 		})
 
+		input.SetDoneFunc(func(key tcell.Key) {
+			if key == tcell.KeyEsc {
+				app.SetRoot(flex, true).SetFocus(requestForm)
+			}
+		})
+
 		fileNameInput.AddAndSwitchToPage("input", tview.NewGrid().
 			SetColumns(0, 0, 0).
 			SetRows(0, 3, 0).
@@ -270,7 +303,7 @@ func Layout() {
 	}
 
 	panelModel := tview.NewModal().
-		SetText("Where do you want to go?").
+		SetText("What task do you want to do?").
 		AddButtons([]string{
 			"Request Form",
 			"Send Request",
@@ -379,6 +412,12 @@ func Layout() {
 		app.SetRoot(flex, true).SetFocus(requestForm)
 	})
 
+	helpText.SetDoneFunc(func(key tcell.Key) {
+		if key == tcell.KeyEsc {
+			app.SetRoot(flex, true).SetFocus(requestForm)
+		}
+	})
+
 	// set borders
 	authForm.SetBorder(true)
 	panelForm.SetBorder(true)
@@ -395,6 +434,10 @@ func Layout() {
 			switch event.Key() {
 				case tcell.KeyCtrlP:
 					app.SetRoot(panelModel, true).SetFocus(panelModel)
+					return nil
+
+				case tcell.KeyCtrlH:
+					app.SetRoot(helpPage, true).SetFocus(helpPage)
 					return nil
 
 				case tcell.KeyCtrlQ:

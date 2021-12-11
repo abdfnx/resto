@@ -39,25 +39,25 @@
   ```bash
   resto
   ```
-  
+
 * Send a request to a URL
 
   ```bash
   resto get https://api.github.com
   ```
-  
+
 * Send a request to a URL and use resto editor
 
   ```bash
   resto post https://localhost:3000/v1/login --content-type json --editor
   ```
-  
+
 * Read Body from stdin
 
   ```bash
   cat schema.graphql | resto post https://api.spacex.land/graphql --content-type graphql --body-stdin
   ```
-  
+
 * Use Authentecation with Basic Auth or Bearer Token
 
   ```bash
@@ -67,7 +67,7 @@
   # Basic Auth
   resto delete https://api.secman.dev/api/logins/13 --content-type json --username USERNAME --password PASSWORD
   ```
-  
+
 * Save response to a file
 
   ```bash
@@ -86,7 +86,7 @@
   -t, --token string      The bearer token to use for authentication
   -u, --username string   The username to use for basic authentication
   ```
-  
+
 2. `POST`, `PUT`, `PATCH`, `DELETE` flags
 
   ```
