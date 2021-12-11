@@ -17,6 +17,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	version string
+	versionDate string
+)
+
 type exitCode int
 
 const (
@@ -59,7 +64,7 @@ func mainRun() exitCode {
 		cobra.MousetrapHelpText = ""
 	}
 
-	RootCmd := resto.Execute(cmdFactory)
+	RootCmd := resto.Execute(cmdFactory, version, versionDate)
 
 	if cmd, err := RootCmd.ExecuteC(); err != nil {
 		if err == tools.SilentError {

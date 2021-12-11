@@ -1,6 +1,8 @@
 package resto
 
 import (
+	"fmt"
+
 	"github.com/abdfnx/resto/tools"
 	"github.com/abdfnx/resto/core/layout"
 	"github.com/abdfnx/resto/cmd/factory"
@@ -11,7 +13,7 @@ import (
 )
 
 // Execute start the CLI
-func Execute(f *factory.Factory) *cobra.Command {
+func Execute(f *factory.Factory, version string, versionDate string) *cobra.Command {
 	tools.CheckDotResto()
 
 	const desc = `send pretty HTTP & API requests from your terminal.`
@@ -51,6 +53,15 @@ func Execute(f *factory.Factory) *cobra.Command {
 		},
 	}
 
+	versionCmd := &cobra.Command{
+		Use:   "version",
+		Aliases: []string{"ver"},
+		Short: "Print the version of your resto binary.",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("resto " + version + " " + versionDate)
+		},
+	}
+
 	rootCmd.SetOut(f.IOStreams.Out)
 	rootCmd.SetErr(f.IOStreams.ErrOut)
 
@@ -73,6 +84,7 @@ func Execute(f *factory.Factory) *cobra.Command {
 		cli.PatchCMD(),
 		cli.DeleteCMD(),
 		cli.HeadCMD(),
+		versionCmd,
 	)
 
 	return rootCmd
