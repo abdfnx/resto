@@ -21,8 +21,10 @@ curl -fsSL https://git.io/resto | bash
 * PowerShell
 
 ```
-iwr https://git.io/resto-win | iex
+iwr -useb https://git.io/resto-win | iex
 ```
+
+**then restart your powershell**
 
 ### Go package manager
 
