@@ -4,7 +4,7 @@
   <img src="./.github/assets/logo.svg" height="150px" />
 </p>
 
-> CLI app can send pretty HTTP & API requests from your terminal with GUI.
+> a CLI app can send pretty HTTP & API requests with TUI.
 
 ![demo](https://user-images.githubusercontent.com/64256993/145669325-d9f122d9-c562-417f-a223-a7f2b1c49adb.gif)
 
