@@ -51,10 +51,10 @@ func Layout() {
 		resto is a cli app can send pretty HTTP & API requests from your terminal.
 
 		Shortcuts:
-			- Ctrl+P: Open Renio Panel
+			- Ctrl+P: Open Resto Panel
 			- Ctrl+H: Open Help Guide
 			- Ctrl+S: Save Request Body
-			- Ctrl+Q: Quit			
+			- Ctrl+Q: Quit
 	`
 
 	fmt.Fprintf(helpText, "%s ", help)
@@ -285,11 +285,7 @@ func Layout() {
 			if key == tcell.KeyEnter {
 				doneFunc(input.GetText())
 				fileNameInput.RemovePage("input")
-			}
-		})
-
-		input.SetDoneFunc(func(key tcell.Key) {
-			if key == tcell.KeyEsc {
+			} else if key == tcell.KeyEsc {
 				app.SetRoot(flex, true).SetFocus(requestForm)
 			}
 		})
