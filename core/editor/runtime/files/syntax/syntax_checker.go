@@ -8,7 +8,7 @@ import (
 	"github.com/zyedidia/micro/cmd/micro/highlight"
 )
 
-func main() {
+func checker() {
 	files, _ := ioutil.ReadDir(".")
 
 	hadErr := false
