@@ -16,7 +16,7 @@ import (
 func Execute(f *factory.Factory, version string, versionDate string) *cobra.Command {
 	tools.CheckDotResto()
 
-	const desc = `send pretty HTTP & API requests from your terminal.`
+	const desc = `a CLI app can send pretty HTTP & API requests with TUI.`
 
 	// Root command
 	var rootCmd = &cobra.Command{

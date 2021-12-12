@@ -61,7 +61,7 @@ nfpms:
     homepage: https://github.com/abdfnx/resto
     bindir: /usr
     file_name_template: "{{ .ProjectName }}_v{{ .Version }}_{{ .Arch }}"
-    description: send pretty HTTP & API requests from your terminal with GUI.
+    description: a CLI app can send pretty HTTP & API requests with TUI
     formats:
       - deb
       - rpm
