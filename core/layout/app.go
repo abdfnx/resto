@@ -191,18 +191,6 @@ func Layout() {
 		}
 
 		if cType == "application/json" {
-			fn = "reqBody.json"
-		} else if cType == "application/graphql" {
-			fn = "reqBody.gql"
-		} else if cType == "application/xml" {
-			fn = "reqBody.xml"
-		} else if cType == "text/html" {
-			fn = "reqBody.html"
-		} else {
-			fn = "reqBody.txt"
-		}
-
-		if cType == "application/json" {
 			var r map[string]interface{}
 			json.Unmarshal([]byte(currentBody), &r)
 			body = string(pretty.Pretty([]byte(currentBody)))
