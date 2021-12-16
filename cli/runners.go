@@ -10,12 +10,13 @@ import (
 	"github.com/abdfnx/resto/core/api"
 	"github.com/abdfnx/resto/core/editor"
 	"github.com/abdfnx/resto/core/editor/runtime"
+	"github.com/abdfnx/resto/core/options"
 
 	tcell "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
 
-func runBasic(opts *Options, method string) error {
+func runBasic(opts *options.CLIOptions, method string) error {
 	if opts.Method.AuthType.BasicAuthUsername != "" && opts.Method.AuthType.BasicAuthPassword != "" {
 		opts.Method.AuthType.Type = "basic"
 	} else if opts.Method.AuthType.TokenAuth != "" {
@@ -72,7 +73,7 @@ func runBasic(opts *Options, method string) error {
 	return nil
 }
 
-func runWithBody(opts *Options, method string) error {
+func runWithBody(opts *options.CLIOptions, method string) error {
 	if opts.Method.AuthType.BasicAuthUsername != "" && opts.Method.AuthType.BasicAuthPassword != "" {
 		opts.Method.AuthType.Type = "basic"
 	} else if opts.Method.AuthType.TokenAuth != "" {

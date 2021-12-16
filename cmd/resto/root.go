@@ -7,6 +7,7 @@ import (
 	"github.com/abdfnx/resto/core/layout"
 	"github.com/abdfnx/resto/cmd/factory"
 	"github.com/abdfnx/resto/cli"
+	"github.com/abdfnx/resto/cli/install"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
@@ -84,6 +85,7 @@ func Execute(f *factory.Factory, version string, versionDate string) *cobra.Comm
 		cli.PatchCMD(),
 		cli.DeleteCMD(),
 		cli.HeadCMD(),
+		install_cmd.InstallCMD(),
 		versionCmd,
 	)
 
