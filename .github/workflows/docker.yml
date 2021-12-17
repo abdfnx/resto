@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Run resto in docker container
-        run: docker run --rm -i $RS_FULL_CONTAINER get https://api.github.com/gitignore/templates/C++
+        run: docker run --rm -i $RS_CONTAINER get https://api.github.com/gitignore/templates/C++
 
   # Resto Full Container Docker Image `restohq/resto-full`
   rs_full_container_build:
