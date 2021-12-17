@@ -59,7 +59,7 @@ func Execute(f *factory.Factory, version string, versionDate string) *cobra.Comm
 		Aliases: []string{"ver"},
 		Short: "Print the version of your resto binary.",
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("resto " + version + " " + versionDate)
+			fmt.Println("resto version " + version + " " + versionDate)
 		},
 	}
 

@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+env:
+  GITHUB_TOKEN: ${{ github.token }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up `Go`
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Set up `GoReleaser`
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          install-only: true
+
+      - name: Set up `Tag`
+        id: ghtag
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+      - name: Set up `Date`
+        run: go run ./build/date.go >> date.txt
+
+      - name: Build
+        run: VersionDate="$(cat date.txt)" goreleaser release --rm-dist --timeout 100m
+
+      - name: Build `gh-resto`
+        env:
+          TAG: ${{ steps.ghtag.outputs.tag }}
+        run: |
+          DATE="$(cat date.txt)"
+          gh repo clone abdfnx/gh-resto
+          cd gh-resto
+          ./build.sh $TAG $DATE
+          gh release create $TAG ./dist/* --title="Resto ${TAG}" --notes "${TAG}"
