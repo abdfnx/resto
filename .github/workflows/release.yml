@@ -40,26 +40,27 @@ jobs:
       - name: Build
         run: VersionDate="$(cat date.txt)" goreleaser release --rm-dist --timeout 100m
 
-      - name: Build `gh-resto`
-        env:
-          TAG: ${{ steps.ghtag.outputs.tag }}
-        run: |
-          DATE="$(cat date.txt)"
-          gh repo clone abdfnx/gh-resto
-          cd gh-resto
-          ./build.sh $TAG $DATE
-          ls -a dist
+      # - name: Build `gh-resto`
+      #   env:
+      #     TAG: ${{ steps.ghtag.outputs.tag }}
+      #   run: |
+      #     DATE="$(cat date.txt)"
+      #     gh repo clone abdfnx/gh-resto
+      #     cd gh-resto
+      #     ./build.sh $TAG $DATE
+      #     ls -a dist
 
-      - name: Upload files
-        uses: softprops/action-gh-release@v1
-        with:
-          repository: abdfnx/gh-resto
-          files: |
-            gh-resto/dist/darwin-x86_64
-            gh-resto/dist/linux-i386
-            gh-resto/dist/linux-x86_64
-            gh-resto/dist/windows-i386
-            gh-resto/dist/windows-x86_64
+      # - name: Upload files
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     repository: abdfnx/gh-resto
+      #     draft: true
+      #     files: |
+      #       gh-resto/dist/darwin-x86_64
+      #       gh-resto/dist/linux-i386
+      #       gh-resto/dist/linux-x86_64
+      #       gh-resto/dist/windows-i386
+      #       gh-resto/dist/windows-x86_64
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
