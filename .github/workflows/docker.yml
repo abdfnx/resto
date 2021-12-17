@@ -64,5 +64,5 @@ jobs:
     steps:
       - name: Run resto in docker container
         run: |
-          resto get https://api.github.com
-          resto version
+          sudo resto get https://api.github.com
+          sudo resto version
