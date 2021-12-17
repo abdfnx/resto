@@ -36,7 +36,7 @@ COPY --from=golang /usr/local/go/ /usr/local/go/
 ENV PATH="/usr/local/go/bin:${PATH}"
 
 ### resto ###
-RUN go install github.com/abdfnx/resto@latest
+RUN curl -sL https://git.io/resto | bash
 
 ### zsh ###
 ENV src=".zshrc"
