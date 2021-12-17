@@ -52,17 +52,3 @@ jobs:
 
       - name: Build Resto Full Container
         run: make bfrcwc
-
-  rs_full_container_run:
-    needs: [ rs_full_container_build ]
-
-    runs-on: ubuntu-latest
-
-    container:
-      image: restohq/resto-full:latest
-
-    steps:
-      - name: Run resto in docker container
-        run: |
-          sudo resto get https://api.github.com
-          sudo resto version
