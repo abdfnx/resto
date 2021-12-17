@@ -49,10 +49,12 @@ jobs:
           cd gh-resto
           ./build.sh $TAG $DATE
           ls -a dist
+          mv dist ..
 
       - name: Upload files
         uses: softprops/action-gh-release@v1
         with:
+          repository: abdfnx/gh-resto
           files: |
             dist/darwin-x86_64
             dist/linux-i386
