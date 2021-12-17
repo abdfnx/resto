@@ -49,18 +49,17 @@ jobs:
           cd gh-resto
           ./build.sh $TAG $DATE
           ls -a dist
-          mv dist ..
 
       - name: Upload files
         uses: softprops/action-gh-release@v1
         with:
           repository: abdfnx/gh-resto
           files: |
-            dist/darwin-x86_64
-            dist/linux-i386
-            dist/linux-x86_64
-            dist/windows-i386
-            dist/windows-x86_64
+            gh-resto/dist/darwin-x86_64
+            gh-resto/dist/linux-i386
+            gh-resto/dist/linux-x86_64
+            gh-resto/dist/windows-i386
+            gh-resto/dist/windows-x86_64
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
