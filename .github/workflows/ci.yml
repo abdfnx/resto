@@ -24,7 +24,7 @@ jobs:
     - name: Building From Source
       run: |
         go mod tidy
-        go run ./build/date >> date.txt
+        go run ./build/date.go >> date.txt
         go build -ldflags "-X main.version=$(git describe --abbrev=0 --tags) -X main.versionDate=$(cat date.txt)" -o resto
 
     - name: Test it
@@ -54,7 +54,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Install from script
-      run: gh extension install abdfnx/resto
+      run: gh extension install abdfnx/gh-resto
 
     - name: Test it
       run: |
