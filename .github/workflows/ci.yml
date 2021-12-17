@@ -1,0 +1,62 @@
+name: Resto CI
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+env:
+  GITHUB_TOKEN: ${{ github.token }}
+
+jobs:
+  bfs: # build from source
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+
+    - name: Building From Source
+      run: |
+        go mod tidy
+        go run ./build/date >> date.txt
+        go build -ldflags "-X main.version=$(git describe --abbrev=0 --tags) -X main.versionDate=$(cat date.txt)" -o resto
+
+    - name: Test it
+      run: ./resto install https://deno.land/x/install/install.sh
+
+    - name: Test 2
+      run: |
+        deno -V
+        deno run https://deno.land/std/examples/welcome.ts
+
+  from_script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install from script
+      run: curl -sL https://git.io/resto | bash
+
+    - name: Test it
+      run: resto get https://api.github.com/gitignore/templates/Go
+
+  from_gh_cli:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install from script
+      run: gh extension install abdfnx/resto
+
+    - name: Test it
+      run: |
+        gh resto get https://api.secman.dev
+        cat examples/spacex.gql | gh resto post https://api.spacex.land/graphql -c graphql --body-stdin
