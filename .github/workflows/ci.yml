@@ -28,13 +28,13 @@ jobs:
         go build -ldflags "-X main.version=$(git describe --abbrev=0 --tags) -X main.versionDate=$(cat date.txt)" -o resto
 
     - name: Test it
-      run: |
-        ./resto install https://deno.land/x/install/install.sh
-        export DENO_INSTALL="/home/runner/.deno"
-        export PATH="$DENO_INSTALL/bin:$PATH"
+      run: ./resto install https://deno.land/x/install/install.sh
 
     - name: Test 2
       run: |
+        export DENO_INSTALL="/home/runner/.deno"
+        export PATH="$DENO_INSTALL/bin:$PATH"
+
         deno -V
         deno run https://deno.land/std/examples/welcome.ts
 

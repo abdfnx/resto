@@ -1,0 +1,68 @@
+name: Resto Docker CI
+
+on:
+  push:
+    branches:
+      - dev
+
+env:
+  RS_CONTAINER: restohq/resto
+  RS_FULL_CONTAINER: restohq/resto-full
+
+jobs:
+  # Resto Container Docker Image `restohq/resto`
+  rs_container_build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_ID }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Build Resto Container
+        run: make brcwc
+
+  rs_container_run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run resto in docker container
+        run: docker run -it $RS_FULL_CONTAINER get https://api.github.com/gitignore/templates/C++
+
+  # Resto Full Container Docker Image `restohq/resto-full`
+  rs_full_container_build:
+    needs: [ rs_container_build, rs_container_run]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_ID }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Build Resto Full Container
+        run: make bfrcwc
+
+  rs_full_container_run:
+    needs: [ rs_full_container_build ]
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: restohq/resto-full:latest
+
+    steps:
+      - name: Run resto in docker container
+        run: |
+          resto get https://api.github.com
+          resto version
