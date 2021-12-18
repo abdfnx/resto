@@ -79,6 +79,12 @@ iwr -useb https://git.io/resto-win | iex
   ```bash
   resto get http://localhost:3333/api/v1/hello --save response.json
   ```
+  
+* Install binary app from script URL and run it.
+
+  ```bash
+  resto i https://get.docker.com
+  ```
 
 ### Flags
 
