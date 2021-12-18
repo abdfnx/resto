@@ -19,18 +19,17 @@ builds:
       - -X main.versionDate={{ .Env.VersionDate }}
 
     goos:
-      - linux
+      - darwin
       - freebsd
       - openbsd
-      - darwin
+      - linux
       - windows
 
     goarch:
-      - amd64
-      - arm64
       - 386
+      - amd64
       - arm
-      - ppc64le
+      - arm64
 
     goarm:
       - 6
