@@ -73,6 +73,6 @@ brews:
       name: homebrew-tap
     commit_author:
       name: "Abdfnx"
-      email: {{ .Env.Email }}
+      email: "{{ .Env.Email }}"
     homepage: "https://github.com/abdfnx/resto"
     description: "a CLI app can send pretty HTTP & API requests with TUI"
