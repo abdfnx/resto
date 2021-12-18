@@ -1,5 +1,8 @@
 project_name: resto
 
+env:
+  - CGO_ENABLED=0
+
 release:
   prerelease: auto
   draft: true
@@ -10,29 +13,28 @@ before:
     - go mod tidy
 
 builds:
-  - <<: &build_defaults
-      binary: bin/resto
-      main: ./
-      ldflags:
-        - -X main.version=v{{ .Version }}
-        - -X main.versionDate={{ .Env.VersionDate }}
+  - binary: bin/resto
+    ldflags:
+      - -X main.version=v{{ .Version }}
+      - -X main.versionDate={{ .Env.VersionDate }}
 
-    id: macos
-    goos: [ darwin ]
-    goarch: [ amd64 ]
+    goos:
+      - linux
+      - freebsd
+      - openbsd
+      - darwin
+      - windows
 
-  - <<: *build_defaults
-    id: linux
-    goos: [ linux ]
-    goarch: [ amd64 ]
+    goarch:
+      - amd64
+      - arm64
+      - 386
+      - arm
+      - ppc64le
 
-    env:
-      - CGO_ENABLED=0
-
-  - <<: *build_defaults
-    id: windows
-    goos: [ windows ]
-    goarch: [ amd64 ]
+    goarm:
+      - 6
+      - 7
 
 archives:
   - id: nix
@@ -72,7 +74,13 @@ brews:
       owner: abdfnx
       name: homebrew-tap
     commit_author:
-      name: "Abdfnx"
+      name: "abdfnx"
       email: "{{ .Env.Email }}"
     homepage: "https://github.com/abdfnx/resto"
     description: "a CLI app can send pretty HTTP & API requests with TUI"
+
+signs:
+  - artifacts: checksum
+
+checksum:
+  name_template: "checksums.txt"
