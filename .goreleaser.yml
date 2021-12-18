@@ -65,3 +65,14 @@ nfpms:
     formats:
       - deb
       - rpm
+
+brews:
+  - goarm: 6
+    tap:
+      owner: abdfnx
+      name: homebrew-tap
+    commit_author:
+      name: "Abdfnx"
+      email: {{ .Env.Email }}
+    homepage: "https://github.com/abdfnx/resto"
+    description: "a CLI app can send pretty HTTP & API requests with TUI"
