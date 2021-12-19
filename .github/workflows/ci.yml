@@ -88,6 +88,8 @@ jobs:
       run: resto get https://api.github.com/organizations
 
   from_gh_cli:
+    needs: [ bfs, bfs_windows ]
+
     runs-on: macos-latest
 
     steps:
