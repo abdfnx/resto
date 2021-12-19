@@ -34,10 +34,7 @@ jobs:
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
       - name: Set up `Date`
-        id: rsdate
-        run: |
-          go run ./build/date.go >> date.txt
-          echo ::set-output name=date::${cat date.txt}
+        run: go run ./build/date.go >> date.txt
 
       - name: Build
         run: VersionDate="$(cat date.txt)" Email="${{ secrets.AUTHOR_EMAIL }}" goreleaser release --rm-dist --timeout 100m
