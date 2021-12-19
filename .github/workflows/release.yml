@@ -8,10 +8,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-permissions:
-  actions: write
-  contents: write
-  id-token: write
+permissions: write-all
 
 jobs:
   build_resto:
