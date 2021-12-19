@@ -37,3 +37,12 @@ resto run
 # from file
 resto run --file examples/basic_request/Restofile
 ```
+
+### docs
+
+#### flags
+
+```
+-a, --all           Show all response headers & status
+-f, --file string   Path to Restofile (Default: PATH/Restofile)
+```

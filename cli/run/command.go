@@ -188,6 +188,10 @@ func run(opts *options.RunCommandOptions) error {
 							tools.SaveBuffer(buffer, fn)
 							app.Stop()
 							return nil
+
+						case tcell.KeyCtrlQ:
+							app.Stop()
+							return nil
 					}
 
 					return event
