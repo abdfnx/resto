@@ -38,7 +38,7 @@ jobs:
         run: go run ./build/date.go >> date.txt
 
       - name: Build
-        run: VersionDate="$(cat date.txt)" Email="${{ secret.AUTHOR_EMAIL }}" goreleaser release --rm-dist --timeout 100m
+        run: VersionDate="$(cat date.txt)" Email="${{ secrets.AUTHOR_EMAIL }}" goreleaser release --rm-dist --timeout 100m
 
       # - name: Build `gh-resto`
       #   env:
