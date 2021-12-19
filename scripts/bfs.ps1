@@ -1,7 +1,6 @@
 # Build From Source
 $loc = "$HOME\AppData\Local\resto"
 
-New-Item date.txt
 go run build/date.go >> date.txt
 
 $LATEST_VERSION=git describe --abbrev=0 --tags
