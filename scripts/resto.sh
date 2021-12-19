@@ -2,6 +2,7 @@
 
 restoPath=/usr/local/bin
 UNAME=$(uname)
+arch=$(uname -m)
 
 rmOldFiles() {
     if [ -f $restoPath/resto ]; then
@@ -14,7 +15,7 @@ v=$(curl --silent "https://api.github.com/repos/abdfnx/resto/releases/latest" | 
 releases_api_url=https://github.com/abdfnx/resto/releases/download
 
 successInstall() {
-    echo "🙏 Thanks for installing the Resto! If this is your first time using the CLI, be sure to run `resto --help` first."
+    echo "🙏 Thanks for installing Resto! If this is your first time using the CLI, be sure to run `resto --help` first."
 }
 
 mainCheck() {

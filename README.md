@@ -92,7 +92,7 @@ iwr -useb https://git.io/resto-win | iex
   resto run
 
   # from path
-  resto run --file ./examples/basic_request/Restofile
+  resto run --file ./examples/restofile/basic_request/Restofile
   ```
 
 ### Flags

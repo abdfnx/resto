@@ -23,7 +23,8 @@ Remove-Item resto_windows* -Recurse -Force
 [System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$loc\bin", [System.EnvironmentVariableTarget]::User)
 
 if (Test-Path -path $loc) {
-    Write-Host "Thanks for installing the Resto! If this is your first time using the CLI, be sure to run `resto --help` first." -ForegroundColor DarkGreen
+    Write-Host "Thanks for installing Resto! Refresh your powershell" -ForegroundColor DarkGreen
+    Write-Host "If this is your first time using the CLI, be sure to run 'resto --help' first." -ForegroundColor DarkGreen
 } else {
     Write-Host "Download failed"
     Write-Host "Please try again later"
