@@ -8,6 +8,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ github.token }}
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
   bfs: # build from source
