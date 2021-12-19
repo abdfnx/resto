@@ -122,6 +122,19 @@ iwr -useb https://git.io/resto-win | iex
   -t, --token string          The bearer token to use for authentication
   -u, --username string       The username to use for basic authentication
   ```
+  
+3. `install` command flags
+
+  ```
+  -s, --shell string   shell to use default: bash
+  ```
+  
+4. `run` command flags
+
+  ```
+  -a, --all           Show all response headers & status
+  -f, --file string   Path to Restofile (Default: PATH/Restofile)
+  ```
 
 ## Documentation
 
