@@ -86,6 +86,15 @@ iwr -useb https://git.io/resto-win | iex
   resto i https://get.docker.com
   ```
 
+* Send a request from Restofile
+
+  ```bash
+  resto run
+
+  # from path
+  resto run --file ./examples/basic_request/Restofile
+  ```
+
 ### Flags
 
 1. `GET` & `HEAD` flags

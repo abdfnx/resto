@@ -27,3 +27,8 @@ type InstallCommandOptions struct {
 	Shell string
 	URL   string
 }
+
+type RunCommandOptions struct {
+	Path    string
+	ShowAll bool
+}

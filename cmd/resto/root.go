@@ -8,6 +8,7 @@ import (
 	"github.com/abdfnx/resto/cmd/factory"
 	"github.com/abdfnx/resto/cli"
 	"github.com/abdfnx/resto/cli/install"
+	runCmd "github.com/abdfnx/resto/cli/run"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
@@ -43,6 +44,13 @@ func Execute(f *factory.Factory, version string, versionDate string) *cobra.Comm
 
 			# Save response to a file
 			resto get http://localhost:3333/api/v1/hello --save response.json
+
+			# Install binary app from script URL and run it.
+			resto i https://get.docker.com
+
+			# Send a request from Restofile
+			# after creating a Restofile
+			resto run
 		`),
 		Annotations: map[string]string{
 			"help:tellus": heredoc.Doc(`
@@ -86,6 +94,7 @@ func Execute(f *factory.Factory, version string, versionDate string) *cobra.Comm
 		cli.DeleteCMD(),
 		cli.HeadCMD(),
 		install_cmd.InstallCMD(),
+		runCmd.RunCMD(),
 		versionCmd,
 	)
 

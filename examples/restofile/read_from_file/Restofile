@@ -1,0 +1,9 @@
+request {
+   method "POST"
+   url "https://api.spacex.land/graphql"
+   contentType "application/graphql"
+}
+
+body {
+   readFrom "examples/spacex.gql"
+}

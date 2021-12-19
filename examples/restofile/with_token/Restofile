@@ -1,0 +1,14 @@
+request {
+   method "POST"
+   url "https://graphql.contentful.com/content/v1/spaces/mt0pmhki5db7"
+   contentType "application/graphql"
+}
+
+body {
+   openBodyEditor "true"
+}
+
+auth {
+   type "bearer"
+   token "env:TOKEN"
+}

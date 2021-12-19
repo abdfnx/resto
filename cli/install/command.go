@@ -43,7 +43,13 @@ func InstallCMD() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().StringVarP(&opts.Shell, "shell", "s", "", "shell to use")
+	p := "bash"
+
+	if runtime.GOOS == "windows" {
+		p = "powershell"
+	}
+
+	cmd.Flags().StringVarP(&opts.Shell, "shell", "s", "", "shell to use (Default: " + p + ")")
 
 	return cmd
 }
