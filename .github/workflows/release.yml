@@ -32,7 +32,10 @@ jobs:
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
       - name: Set up `Date`
-        run: go run ./build/date.go >> date.txt
+        id: rsdate
+        run: |
+          go run ./build/date.go >> date.txt
+          echo ::set-output name=date::${cat date.txt}
 
       - name: Set up `GoReleaser` and build
         uses: goreleaser/goreleaser-action@v2
@@ -41,7 +44,7 @@ jobs:
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          VersionDate: "$(cat date.txt)"
+          VersionDate: ${{ steps.rsdate.outputs.date }}
           Email: ${{ secrets.AUTHOR_EMAIL }}
 
       # - name: Build `gh-resto`
