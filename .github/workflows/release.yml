@@ -38,6 +38,11 @@ jobs:
 
       - name: Build
         run: VersionDate="$(cat date.txt)" Email="${{ secrets.AUTHOR_EMAIL }}" goreleaser release --rm-dist --timeout 100m
+        
+      - name: Setup `Node.js`
+        uses: actions/setup-node@v2.5.0
+        with:
+          node-version: 16
 
       - name: Build `gh-resto`
         env:
