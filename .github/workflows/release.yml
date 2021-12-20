@@ -47,6 +47,7 @@ jobs:
           gh repo clone abdfnx/gh-resto
           cd gh-resto
           ./release.sh $TAG $DATE
+          yarn
           cd ..
           make ghrs
 
