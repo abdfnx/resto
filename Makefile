@@ -28,3 +28,6 @@ bfrcwc: # build full resto container with cache
 		@docker pull restohq/resto-full:latest && \
 		docker build -t restohq/resto-full --cache-from restohq/resto-full:latest . && \
 		docker push restohq/resto-full
+
+ghrs:
+		@node scripts/gh-resto/gh-rs.js

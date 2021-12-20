@@ -5,3 +5,7 @@ dist
 *.exe
 *.exe~
 resto
+
+# dependency directories
+vendor
+node_modules
