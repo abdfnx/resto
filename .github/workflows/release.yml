@@ -62,7 +62,7 @@ jobs:
         env:
           TAG: ${{ steps.ghtag.outputs.tag }}
         run: |
-          cd ./scripts/gh-resto/tmp
+          cd ./scripts/gh-resto/tmp/gh-resto
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git diff --cached
