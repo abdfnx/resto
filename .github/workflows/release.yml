@@ -47,7 +47,6 @@ jobs:
       - name: Build `gh-resto`
         env:
           TAG: ${{ steps.ghtag.outputs.tag }}
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
           DATE="$(cat date.txt)"
           gh repo clone abdfnx/gh-resto
@@ -56,8 +55,7 @@ jobs:
           cd ../scripts/gh-resto
           yarn
           cd ../..
-          git config user.name "$(git --no-pager log --format=format:'%an' -n 1)"
-          git config user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
+          echo ${{ secrets.ACCESS_TOKEN }} | gh auth login --with-token
           make ghrs
 
       - name: Login to Docker Hub
