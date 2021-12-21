@@ -114,7 +114,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install from script
+    - name: Install from GitHub CLI as extension
       run: gh extension install abdfnx/gh-resto
 
     - name: Test it
