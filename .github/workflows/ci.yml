@@ -28,17 +28,10 @@ jobs:
         go run ./build/date.go >> date.txt
         go build -ldflags "-X main.version=$(git describe --abbrev=0 --tags) -X main.versionDate=$(cat date.txt)" -o resto
 
-    - name: Test it
-      run: ./resto install https://deno.land/x/install/install.sh
-
-    - name: Test 2
+    - name: Run `Restofile`
       run: |
-        export DENO_INSTALL="/home/runner/.deno"
-        export PATH="$DENO_INSTALL/bin:$PATH"
+        ./resto run ./examples/restofile/basic_request/Restofile
 
-        deno -V
-        deno run https://deno.land/std/examples/welcome.ts
-    
   bfs_windows: # build from source (windows)
     runs-on: windows-latest
 
@@ -88,8 +81,33 @@ jobs:
     - name: Test it
       run: resto get https://api.github.com/organizations
 
-  from_gh_cli:
+  go:
     needs: [ bfs, bfs_windows ]
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+
+    - name: Install from Go
+      run: go install github.com/abdfnx/resto@latest
+
+    - name: Install `deno` from resto
+      run: |
+        resto install https://deno.land/x/install/install.sh
+        export DENO_INSTALL="/home/runner/.deno"
+        export PATH="$DENO_INSTALL/bin:$PATH"
+
+        deno -V
+        deno run https://deno.land/std/examples/welcome.ts
+
+  from_gh_cli:
+    needs: [ bfs, bfs_windows, go ]
 
     runs-on: macos-latest
 
