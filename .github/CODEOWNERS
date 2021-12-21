@@ -3,3 +3,4 @@ scripts/resto.sh @abdfnx @david-tomson
 scripts/resto.ps1 @abdfnx @david-tomson
 README.md @abdfnx @david-tomson
 .github/dependabot.yml @abdfnx @Timothee-Cardoso
+.github/workflows/ci.yml @abdfnx @david-tomson
