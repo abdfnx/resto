@@ -38,6 +38,18 @@ iwr -useb https://git.io/resto-win | iex
   gh extension install abdfnx/gh-resto
   ```
 
+### Via Docker
+
+  ```bash
+  docker run -it restohq/resto <CMD>
+  ```
+
+  > full container:
+
+  ```bash
+  docker run -it restohq/resto-full
+  ```
+
 ## Usage
 
 * Open Resto UI
@@ -136,6 +148,13 @@ iwr -useb https://git.io/resto-win | iex
   -f, --file string   Path to Restofile (Default: PATH/Restofile)
   ```
 
+### Shortcuts
+
+- <kbd>Ctrl+P</kbd>: **Open Resto Panel**
+- <kbd>Ctrl+H</kbd>: **Open Help Guide**
+- <kbd>Ctrl+S</kbd>: **Save Request Body**
+- <kbd>Ctrl+Q</kbd>: **Quit**
+
 ## Documentation
 
-Refer to [**resto website**](https://resto.deno.dev) for the documentation. Or you can check out the [**Wiki**](https://github.com/abdfnx/resto/wiki).
+Refer to [**resto website**](https://resto.web.app) for the documentation. Or you can check out the [**Wiki**](https://github.com/abdfnx/resto/wiki).
