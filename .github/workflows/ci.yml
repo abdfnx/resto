@@ -30,7 +30,7 @@ jobs:
 
     - name: Run `Restofile`
       run: |
-        ./resto run ./examples/restofile/basic_request/Restofile
+        ./resto run -f ./examples/restofile/basic_request/Restofile
 
   bfs_windows: # build from source (windows)
     runs-on: windows-latest
