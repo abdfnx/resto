@@ -121,19 +121,17 @@ jobs:
       run: |
         gh resto get https://api.secman.dev
         cat examples/spacex.gql | gh resto post https://api.spacex.land/graphql -c graphql --body-stdin
-  
+
   homebrew:
     needs: [ bfs ]
-  
+
     runs-on: macos-latest
-    
+
     steps:
     - uses: actions/checkout@v2
 
     - name: Get Resto via homebrew
-      run: |
-        brew tap abdfnx/tap/resto
-        brew install resto
-        
+      run: brew install abdfnx/tap/resto
+
     - name: Run `resto help`
       run: resto help
