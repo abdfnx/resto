@@ -41,7 +41,7 @@ builds:
 
 archives:
   - id: nix
-    builds: [ macos, linux ]
+    builds: [ macos, linux, freebsd ]
     <<: &archive_defaults
       name_template: "{{ .ProjectName }}_{{ .Os }}_v{{ .Version }}_{{ .Arch }}"
 
