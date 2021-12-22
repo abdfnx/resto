@@ -145,4 +145,4 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Run in docker container
-      run: cat examples/job.json | docker run -it restohq/resto put https://reqres.in/api/users/878 -c json --body-stdin
+      run: cat examples/job.json | docker run --rm -i restohq/resto put https://reqres.in/api/users/878 -c json --body-stdin
