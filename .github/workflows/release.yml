@@ -7,6 +7,8 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+  GITHUB_ACTIONS_NAME: "github-actions[bot]"
+  GITHUB_ACTIONS_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
 
 permissions: write-all
 
@@ -38,7 +40,7 @@ jobs:
         run: go run ./build/date.go >> date.txt
 
       - name: Build
-        run: VersionDate="$(cat date.txt)" Email="${{ secrets.AUTHOR_EMAIL }}" goreleaser release --rm-dist --timeout 100m
+        run: VersionDate="$(cat date.txt)" AuthorName="${{ env.GITHUB_ACTIONS_NAME }}" AuthorEmail="${{ env.GITHUB_ACTIONS_EMAIL }}" goreleaser release --rm-dist --timeout 100m
         
       - name: Setup `Node.js`
         uses: actions/setup-node@v2.5.0
@@ -63,8 +65,8 @@ jobs:
           TAG: ${{ steps.ghtag.outputs.tag }}
         run: |
           cd ./scripts/gh-resto/tmp/gh-resto
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config --local user.email "${{ env.GITHUB_ACTIONS_EMAIL }}"
+          git config --local user.name "${{ env.GITHUB_ACTIONS_NAME }}"
           git diff --cached
           git add .
           git commit -m "resto ${TAG}"
