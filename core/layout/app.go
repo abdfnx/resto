@@ -409,6 +409,13 @@ func Layout() {
 	responseView.SetBorder(true)
 	statusView.SetBorder(true)
 
+	// set titles
+	requestForm.SetTitle("Request Form").SetTitleAlign(tview.AlignCenter)
+	authForm.SetTitle("Authentication").SetTitleAlign(tview.AlignCenter)
+	panelForm.SetTitle("Panel").SetTitleAlign(tview.AlignCenter)
+	responseView.SetTitle("Response").SetTitleAlign(tview.AlignCenter)
+	statusView.SetTitle("Status").SetTitleAlign(tview.AlignCenter)
+
 	if err := app.
 		EnableMouse(true).
 		SetRoot(flex, true).
