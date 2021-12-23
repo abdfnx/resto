@@ -13,6 +13,7 @@ import (
 	"github.com/abdfnx/resto/core/graphql"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/tidwall/pretty"
+	"github.com/rivo/tview"
 )
 
 var (
@@ -31,6 +32,8 @@ func BasicRequestWithBody(
 		basicAuthUsername,
 		basicAuthPassword string,
 		isCommand bool,
+		headersCount int,
+		headersForm *tview.Form,
 	) (string, string, string, error) {
 	url, err := validation.CheckURL(httpURL)
 
@@ -50,6 +53,13 @@ func BasicRequestWithBody(
 			req.Header.Set("Authorization", "Bearer " + baererToken)
 		} else if authType == "basic" {
 			req.Header.Set("Authorization", "Basic " + basicAuth(basicAuthUsername, basicAuthPassword))
+		}
+
+		for i := 0; i < headersCount; i++ {
+			key := headersForm.GetFormItem(i).(*tview.InputField).GetLabel()
+			value := headersForm.GetFormItem(i).(*tview.InputField).GetText()
+			
+			req.Header.Set(key, value)
 		}
 
 		// define a Context for the request
@@ -111,6 +121,15 @@ func BasicRequestWithBody(
 			req.Header.Set("Authorization", "Bearer " + baererToken)
 		} else if authType == "basic" {
 			req.Header.Set("Authorization", "Basic " + basicAuth(basicAuthUsername, basicAuthPassword))
+		}
+
+		if headersForm != nil {
+			for i := 0; i < headersCount; i++ {
+				key := headersForm.GetFormItem(i).(*tview.InputField).GetLabel()
+				value := headersForm.GetFormItem(i).(*tview.InputField).GetText()
+				
+				req.Header.Set(key, value)
+			}
 		}
 
 		client := httpClient.HttpClient()

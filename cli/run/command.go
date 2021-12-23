@@ -298,6 +298,8 @@ func run(opts *options.RunCommandOptions) error {
 			username,
 			password,
 			true,
+			0,
+			nil,
 		)
 
 		if err != nil {
@@ -323,6 +325,8 @@ func run(opts *options.RunCommandOptions) error {
 				username,
 				password,
 				true,
+				0,
+				nil,
 			)
 
 		if err != nil {

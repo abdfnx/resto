@@ -31,6 +31,8 @@ func runBasic(opts *options.CLIOptions, method string) error {
 		opts.Method.AuthType.BasicAuthUsername,
 		opts.Method.AuthType.BasicAuthPassword,
 		true,
+		0,
+		nil,
 	)
 
 	if err != nil {
@@ -53,6 +55,8 @@ func runBasic(opts *options.CLIOptions, method string) error {
 			opts.Method.AuthType.BasicAuthUsername,
 			opts.Method.AuthType.BasicAuthPassword,
 			false,
+			0,
+			nil,
 		)
 
 		data := []byte(respone)
@@ -174,6 +178,8 @@ func runWithBody(opts *options.CLIOptions, method string) error {
 		opts.Method.AuthType.BasicAuthUsername,
 		opts.Method.AuthType.BasicAuthPassword,
 		true,
+		0,
+		nil,
 	)
 
 	if err != nil {
@@ -198,6 +204,8 @@ func runWithBody(opts *options.CLIOptions, method string) error {
 			opts.Method.AuthType.BasicAuthUsername,
 			opts.Method.AuthType.BasicAuthPassword,
 			false,
+			0,
+			nil,
 		)
 
 		data := []byte(respone)

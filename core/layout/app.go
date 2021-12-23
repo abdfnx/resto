@@ -32,6 +32,9 @@ var (
 	// auth
 	authType 	    string
 	requestHeaders  string
+
+	// headers
+	headersCount    int = 0
 )
 
 func Layout() {
@@ -67,7 +70,7 @@ func Layout() {
 
 	// forms
 	authForm := tview.NewForm()
-	panelForm := tview.NewForm()
+	headersForm := tview.NewForm()
 	requestForm := tview.NewForm()
 
 	// request inputs
@@ -164,11 +167,51 @@ func Layout() {
 	flex.AddItem(tview.NewFlex().SetDirection(tview.FlexRow).
 		AddItem(requestForm, 0, 1, false).
 		AddItem(authForm, 20, 1, false).
-		AddItem(panelForm, 15, 1, false), 0, 1, false).
+		AddItem(headersForm, 15, 1, false), 0, 1, false).
 		AddItem(tview.NewFlex().SetDirection(tview.FlexRow).
 		AddItem(responseView, 0, 3, false).
 		AddItem(statusView, 7, 1, false), 0, 2, false).
 		AddItem(tview.NewBox().SetBorder(true), 0, 0, false)
+
+	var Input = func(text, label string, width int, formToReturn *tview.Form, doneFunc func(text string)) {
+		fileNameInput := tview.NewPages()
+
+		input := tview.NewInputField().SetText(text)
+		input.SetBorder(true)
+		input.SetLabel(label).SetLabelWidth(width).SetDoneFunc(func(key tcell.Key) {
+			if key == tcell.KeyEnter {
+				doneFunc(input.GetText())
+				fileNameInput.RemovePage("input")
+			} else if key == tcell.KeyEsc {
+				app.SetRoot(flex, true).SetFocus(formToReturn)
+			}
+		})
+
+		fileNameInput.AddAndSwitchToPage("input", tview.NewGrid().
+			SetColumns(0, 0, 0).
+			SetRows(0, 3, 0).
+			AddItem(input, 1, 1, 1, 1, 0, 0, true), true).ShowPage("main")
+		
+		app.SetRoot(fileNameInput, true).SetFocus(input)
+	}
+
+	headersForm.AddButton("Add Header", func() {
+		Input("", "header to add", 14, headersForm, func(text string) {
+			headersForm.AddInputField(text, "", 20, nil, nil)
+
+			headersCount++
+
+			app.SetRoot(flex, true).SetFocus(headersForm)
+		})
+	}).AddButton("Remove Header", func() {
+		Input("", "header to remove", 17, headersForm, func(text string) {
+			headersForm.RemoveFormItem(headersForm.GetFormItemIndex(text))
+
+			headersCount--
+
+			app.SetRoot(flex, true).SetFocus(headersForm)
+		})
+	})
 	
 	var send = func() {
 		responseView.Clear()
@@ -210,6 +253,8 @@ func Layout() {
 					username.GetText(),
 					password.GetText(),
 					false,
+					headersCount,
+					headersForm,
 				)
 		} else {
 			body = ""
@@ -223,6 +268,8 @@ func Layout() {
 					username.GetText(),
 					password.GetText(),
 					false,
+					headersCount,
+					headersForm,
 				)
 		}
 
@@ -237,8 +284,8 @@ func Layout() {
 	requestForm.AddFormItem(requestMethods).
 		AddFormItem(urlField).
 		AddFormItem(contentType).
-		AddButton("Panel", func() {
-			app.SetRoot(flex, true).SetFocus(panelForm)
+		AddButton("Headers", func() {
+			app.SetRoot(flex, true).SetFocus(headersForm)
 		}).
 		AddButton("Body", func() {
 			app.SetRoot(bodyEditor, true).SetFocus(bodyEditor).Run()
@@ -264,34 +311,13 @@ func Layout() {
 		}
 	})
 
-	var Input = func(text, label string, width int, doneFunc func(text string)) {
-		fileNameInput := tview.NewPages()
-
-		input := tview.NewInputField().SetText(text)
-		input.SetBorder(true)
-		input.SetLabel(label).SetLabelWidth(width).SetDoneFunc(func(key tcell.Key) {
-			if key == tcell.KeyEnter {
-				doneFunc(input.GetText())
-				fileNameInput.RemovePage("input")
-			} else if key == tcell.KeyEsc {
-				app.SetRoot(flex, true).SetFocus(requestForm)
-			}
-		})
-
-		fileNameInput.AddAndSwitchToPage("input", tview.NewGrid().
-			SetColumns(0, 0, 0).
-			SetRows(0, 3, 0).
-			AddItem(input, 1, 1, 1, 1, 0, 0, true), true).ShowPage("main")
-		
-		app.SetRoot(fileNameInput, true).SetFocus(input)
-	}
-
-	panelModel := tview.NewModal().
+	panelModal := tview.NewModal().
 		SetText("What task do you want to do?").
 		AddButtons([]string{
 			"Request Form",
 			"Send Request",
 			"Body",
+			"Headers",
 			"Authorization",
 			"Show Response Headers",
 			"Save Response in File",
@@ -309,6 +335,9 @@ func Layout() {
 
 				case "Body":
 					app.SetRoot(bodyEditor, true).SetFocus(bodyEditor)
+
+				case "Headers":
+					app.SetRoot(flex, true).SetFocus(headersForm)
 				
 				case "Authorization":
 					app.SetRoot(flex, true).SetFocus(authForm)
@@ -319,7 +348,7 @@ func Layout() {
 				case "Save Response in File":
 					data := []byte(respone)
 
-					Input("response.json", "file name", 5, func(fn string) {
+					Input("response.json", "file name", 5, requestForm, func(fn string) {
 						err := os.WriteFile(fn, data, 0644)
 
 						if err != nil {
@@ -336,14 +365,6 @@ func Layout() {
 					app.Stop()
 			}
 		})
-
-	panelForm.AddButton("Show Headers", func() {
-		app.SetRoot(headers, true).SetFocus(headers)
-	}).AddButton("Open Panel", func() {
-		app.SetRoot(panelModel, true).SetFocus(panelModel)
-	}).AddButton("Exit", func() {
-		app.Stop()
-	})
 
 	authForm.AddDropDown("Authentication Type", []string{"none", "basic auth", "bearer token"}, 0, func(option string, optionIndex int) {
 		tokenIndex := authForm.GetFormItemIndex("Token")
@@ -390,8 +411,8 @@ func Layout() {
 		}
 	})
 
-	authForm.AddButton("Panel", func() {
-		app.SetRoot(flex, true).SetFocus(panelForm)
+	authForm.AddButton("Headers", func() {
+		app.SetRoot(flex, true).SetFocus(headersForm)
 	}).AddButton("Request", func() {
 		app.SetRoot(flex, true).SetFocus(requestForm)
 	})
@@ -404,15 +425,15 @@ func Layout() {
 
 	// set borders
 	authForm.SetBorder(true)
-	panelForm.SetBorder(true)
+	headersForm.SetBorder(true)
 	requestForm.SetBorder(true)
 	responseView.SetBorder(true)
 	statusView.SetBorder(true)
 
 	// set titles
-	requestForm.SetTitle("Request Form").SetTitleAlign(tview.AlignCenter)
 	authForm.SetTitle("Authentication").SetTitleAlign(tview.AlignCenter)
-	panelForm.SetTitle("Panel").SetTitleAlign(tview.AlignCenter)
+	headersForm.SetTitle("Headers").SetTitleAlign(tview.AlignCenter)
+	requestForm.SetTitle("Request Form").SetTitleAlign(tview.AlignCenter)
 	responseView.SetTitle("Response").SetTitleAlign(tview.AlignCenter)
 	statusView.SetTitle("Status").SetTitleAlign(tview.AlignCenter)
 
@@ -424,7 +445,7 @@ func Layout() {
 		SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 			switch event.Key() {
 				case tcell.KeyCtrlP:
-					app.SetRoot(panelModel, true).SetFocus(panelModel)
+					app.SetRoot(panelModal, true).SetFocus(panelModal)
 					return nil
 
 				case tcell.KeyCtrlH:
