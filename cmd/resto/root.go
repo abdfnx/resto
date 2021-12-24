@@ -95,6 +95,7 @@ func Execute(f *factory.Factory, version string, versionDate string) *cobra.Comm
 		cli.HeadCMD(),
 		install_cmd.InstallCMD(),
 		runCmd.RunCMD(),
+		cli.GetLatestCMD(),
 		versionCmd,
 	)
 

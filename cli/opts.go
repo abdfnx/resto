@@ -35,3 +35,9 @@ var withBodyOpts = options.CLIOptions{
 		IsBodyStdin: false,
 	},
 }
+
+var getLatestOpts = options.GetLatestCommandOptions{
+	Registry: "",
+	Repo: "",
+	Token: "",
+}

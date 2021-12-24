@@ -1,19 +1,24 @@
 package cli
 
 import (
+	// "encoding/json"
 	"fmt"
-	"os"
-	"log"
 	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
+	// "strings"
 
-	"github.com/abdfnx/resto/tools"
+	httpClient "github.com/abdfnx/resto/client"
 	"github.com/abdfnx/resto/core/api"
 	"github.com/abdfnx/resto/core/editor"
 	"github.com/abdfnx/resto/core/editor/runtime"
 	"github.com/abdfnx/resto/core/options"
+	"github.com/abdfnx/resto/tools"
 
 	tcell "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
+	"github.com/tidwall/gjson"
 )
 
 func runBasic(opts *options.CLIOptions, method string) error {
@@ -136,6 +141,7 @@ func runWithBody(opts *options.CLIOptions, method string) error {
 
 			return event
 		})
+
 		app.SetRoot(bodyEditor, true)
 
 		if err := app.Run(); err != nil {
@@ -221,6 +227,76 @@ func runWithBody(opts *options.CLIOptions, method string) error {
 		fmt.Println(status)
 		fmt.Println("")
 		fmt.Println(string(respone))
+	}
+
+	return nil
+}
+
+func runGetLatest(opts *options.GetLatestCommandOptions) error {
+	registry := "github.com"
+
+	if opts.Registry != "" {
+		registry = opts.Registry
+	}
+
+	url := "https://api.github.com/repos/" + opts.Repo + "/releases/latest"
+
+	if registry == "gitlab.com" {
+		url = "https://gitlab.com/api/v4/projects/" + opts.Repo + "/repository/tags"
+	} else if registry == "bitbucket.org" {
+		url = "https://api.bitbucket.org/2.0/repositories/" + opts.Repo + "/refs"
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+
+	if err != nil {
+		return fmt.Errorf("Error creating request: %s", err.Error())
+	}
+
+	if err != nil {
+		return err
+	}
+		
+	if opts.Token != "" {
+		if opts.Registry == "gitlab.com" {
+			req.Header.Add("PRIVATE-TOKEN", opts.Token)
+		} else {
+			req.Header.Add("Authorization", "Bearer " + opts.Token)
+		}
+	}
+
+	client := httpClient.HttpClient()
+	res, err := client.Do(req)
+
+	if err != nil {
+		return fmt.Errorf("Error sending request: %s", err.Error())
+	}
+
+	defer res.Body.Close()
+
+	b, err := ioutil.ReadAll(res.Body)
+
+	if err != nil {
+		return err
+	}
+
+	body := string(b)
+
+	v := gjson.Get(body, "tag_name")
+
+	if registry == "gitlab.com" {
+		value := gjson.Get(body, "#.name")
+		v = gjson.Get(value.String(), "0")
+	} else if registry == "bitbucket.org" {
+		value := gjson.Get(body, "values")
+		value2 := gjson.Get(value.String(), "0")
+		v = gjson.Get(value2.String(), "name")
+	}
+
+	if v.Exists() {
+		fmt.Println(v.String())
+	} else {
+		fmt.Println("no releases found")
 	}
 
 	return nil

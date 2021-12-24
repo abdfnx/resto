@@ -32,3 +32,9 @@ type RunCommandOptions struct {
 	Path    string
 	ShowAll bool
 }
+
+type GetLatestCommandOptions struct {
+	Registry  string
+	Repo      string
+	Token     string
+}
