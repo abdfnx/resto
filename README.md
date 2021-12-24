@@ -95,6 +95,7 @@ iwr -useb https://git.io/resto-win | iex
 * Install binary app from script URL and run it.
 
   ```bash
+  resto install https://yarnpkg.com/install.sh
   resto i https://get.docker.com
   ```
 
@@ -105,6 +106,17 @@ iwr -useb https://git.io/resto-win | iex
 
   # from path
   resto run --file ./examples/restofile/basic_request/Restofile
+  ```
+  
+* Get the latest release/tag from repository
+  ```bash
+  resto get-latest abdfnx/resto
+  
+  # use another registry
+  resto get-latest 23028539 --registry gitlab.com
+  
+  # with access token
+  resto get-latest spittet/node-postgresql --registry bitbucket.org --token YOUR-ACCESS-TOKEN
   ```
 
 ### Flags
@@ -146,6 +158,13 @@ iwr -useb https://git.io/resto-win | iex
   ```
   -a, --all           Show all response headers & status
   -f, --file string   Path to Restofile (Default: PATH/Restofile)
+  ```
+  
+5. `get-latest` command flags
+
+  ```
+  -r, --registry string   The registry to use
+  -t, --token string      The access token to use it the registry requires authentication
   ```
 
 ### Shortcuts
