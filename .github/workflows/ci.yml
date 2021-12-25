@@ -106,8 +106,25 @@ jobs:
         deno -V
         deno run https://deno.land/std/examples/welcome.ts
 
-  from_gh_cli:
+  snapshot:
     needs: [ bfs, bfs_windows, go ]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up `GoReleaser`
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          install-only: true
+
+      - name: Set up `Date`
+        run: go run ./build/date.go >> date.txt
+
+      - name: Build
+        run: BuildDate="$(cat date.txt)" goreleaser release --snapshot --rm-dist --timeout 100m
+
+  from_gh_cli:
+    needs: [ bfs, bfs_windows, go, snapshot ]
 
     runs-on: macos-latest
 
@@ -123,7 +140,7 @@ jobs:
         cat examples/spacex.gql | gh resto post https://api.spacex.land/graphql -c graphql --body-stdin
 
   homebrew:
-    needs: [ bfs ]
+    needs: [ bfs, snapshot ]
 
     runs-on: macos-latest
 
