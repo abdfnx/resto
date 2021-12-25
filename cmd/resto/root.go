@@ -51,6 +51,9 @@ func Execute(f *factory.Factory, version string, buildDate string) *cobra.Comman
 			# Send a request from Restofile
 			# after creating a Restofile
 			resto run
+
+			# Get the latest release/tag of a repository (github, gitlab, bitbucket)
+			resto get-latest microsoft/vscode
 		`),
 		Annotations: map[string]string{
 			"help:tellus": heredoc.Doc(`
