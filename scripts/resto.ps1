@@ -4,15 +4,16 @@ $tag = (Invoke-WebRequest -Uri $release_url -UseBasicParsing | ConvertFrom-Json)
 $loc = "$HOME\AppData\Local\resto"
 $url = ""
 $arch = $env:PROCESSOR_ARCHITECTURE
+$releases_api_url = "https://github.com/abdfnx/resto/releases/download/$tag/resto_windows_${tag}"
 
 if ($arch -eq "AMD64") {
-    $url = "https://github.com/abdfnx/resto/releases/download/$tag/resto_windows_${tag}_amd64.zip"
+    $url = "${releases_api_url}_amd64.zip"
 } elseif ($arch -eq "x86") {
-    $url = "https://github.com/abdfnx/resto/releases/download/$tag/resto_windows_${tag}_386.zip"
+    $url = "${releases_api_url}_386.zip"
 } elseif ($arch -eq "arm") {
-    $url = "https://github.com/abdfnx/resto/releases/download/$tag/resto_windows_${tag}_arm.zip"
+    $url = "${releases_api_url}_arm.zip"
 } elseif ($arch -eq "arm64") {
-    $url = "https://github.com/abdfnx/resto/releases/download/$tag/resto_windows_${tag}_arm64.zip"
+    $url = "${releases_api_url}_arm64.zip"
 }
 
 if (Test-Path -path $loc) {
