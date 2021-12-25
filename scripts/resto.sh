@@ -2,7 +2,7 @@
 
 restoPath=/usr/local/bin
 UNAME=$(uname)
-arch=$(uname -m)
+ARCH=$(uname -m)
 
 rmOldFiles() {
     if [ -f $restoPath/resto ]; then
@@ -20,9 +20,21 @@ successInstall() {
 
 mainCheck() {
     echo "Installing resto version $v"
+    name=""
 
     if [ "$UNAME" == "Linux" ]; then
-        name="resto_linux_${v}_amd64"
+        if [ $ARCH = "x86_64" ]; then
+            name="resto_linux_${v}_amd64"
+        elif [ $ARCH = "i686" ]; then
+            name="resto_linux_${v}_386"
+        elif [ $ARCH = "i386" ]; then
+            name="resto_linux_${v}_386"
+        elif [ $ARCH = "arm64" ]; then
+            name="resto_linux_${v}_arm64"
+        elif [ $ARCH = "arm" ]; then
+            name="resto_linux_${v}_arm"
+        fi
+
         restoURL=$releases_api_url/$v/$name.zip
 
         wget $restoURL
@@ -36,7 +48,37 @@ mainCheck() {
         rm -rf $name
 
     elif [ "$UNAME" == "Darwin" ]; then
-        name="resto_macos_${v}_amd64"
+        if [ $ARCH = "x86_64" ]; then
+            name="resto_macos_${v}_amd64"
+        elif [ $ARCH = "arm64" ]; then
+            name="resto_macos_${v}_arm64"
+        fi
+
+        restoURL=$releases_api_url/$v/$name.zip
+
+        wget $restoURL
+        sudo chmod 755 $name.zip
+        unzip $name.zip
+        rm $name.zip
+
+        # resto
+        sudo mv $name/bin/resto $restoPath
+
+        rm -rf $name
+
+    elif [ "$UNAME" == "FreeBSD" ]; then
+        if [ $ARCH = "x86_64" ]; then
+            name="resto_freebsd_${v}_amd64"
+        elif [ $ARCH = "i386" ]; then
+            name="resto_freebsd_${v}_386"
+        elif [ $ARCH = "i686" ]; then
+            name="resto_freebsd_${v}_386"
+        elif [ $ARCH = "arm64" ]; then
+            name="resto_freebsd_${v}_arm64"
+        elif [ $ARCH = "arm" ]; then
+            name="resto_freebsd_${v}_arm"
+        fi
+
         restoURL=$releases_api_url/$v/$name.zip
 
         wget $restoURL
