@@ -5,7 +5,7 @@ DATE=$(shell go run ./build/date.go)
 
 build:
 		@go mod tidy && \
-		go build -ldflags "-X main.version=$(TAG) -X main.versionDate=$(DATE)" -o resto
+		go build -ldflags "-X main.version=$(TAG) -X main.buildDate=$(DATE)" -o resto
 
 install: resto
 		@mv resto /usr/local/bin

@@ -40,7 +40,7 @@ jobs:
         run: go run ./build/date.go >> date.txt
 
       - name: Build
-        run: VersionDate="$(cat date.txt)" goreleaser release --rm-dist --timeout 100m
+        run: BuildDate="$(cat date.txt)" goreleaser release --rm-dist --timeout 100m
         
       - name: Setup `Node.js`
         uses: actions/setup-node@v2.5.0

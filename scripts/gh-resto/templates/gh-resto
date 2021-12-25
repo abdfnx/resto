@@ -3,7 +3,7 @@ set -e
 
 repo="abdfnx/gh-resto"
 tag="CLI_VERSION"
-versionDate="CLI_VERSION_DATE"
+buildDate="CLI_VERSION_DATE"
 
 extensionPath="$(dirname "$0")"
 arch="$(uname -m)"
@@ -41,7 +41,7 @@ if [ "${exe}" == "" ]; then
   exe="cmd.out"
 
   cd "${extensionPath}" > /dev/null
-  go build -o "${exe}" -ldflags "-X main.version=${tag} -X main.versionDate=${versionDate}"
+  go build -o "${exe}" -ldflags "-X main.version=${tag} -X main.buildDate=${buildDate}"
   cd - > /dev/null
 else
   if [[ ! -x "${extensionPath}/bin/${exe}" ]]; then

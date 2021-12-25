@@ -15,7 +15,7 @@ import (
 )
 
 // Execute start the CLI
-func Execute(f *factory.Factory, version string, versionDate string) *cobra.Command {
+func Execute(f *factory.Factory, version string, buildDate string) *cobra.Command {
 	tools.CheckDotResto()
 
 	const desc = `a CLI app can send pretty HTTP & API requests with TUI.`
@@ -67,7 +67,7 @@ func Execute(f *factory.Factory, version string, versionDate string) *cobra.Comm
 		Aliases: []string{"ver"},
 		Short: "Print the version of your resto binary.",
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("resto version " + version + " " + versionDate)
+			fmt.Println("resto version " + version + " " + buildDate)
 		},
 	}
 

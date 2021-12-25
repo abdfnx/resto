@@ -18,7 +18,7 @@ builds:
       main: ./
       ldflags:
         - -X main.version=v{{ .Version }}
-        - -X main.versionDate={{ .Env.VersionDate }}
+        - -X main.buildDate={{ .Env.BuildDate }}
 
     id: macos
     goos: [ darwin ]

@@ -19,7 +19,7 @@ import (
 
 var (
 	version string
-	versionDate string
+	buildDate string
 )
 
 type exitCode int
@@ -64,7 +64,7 @@ func mainRun() exitCode {
 		cobra.MousetrapHelpText = ""
 	}
 
-	RootCmd := resto.Execute(cmdFactory, version, versionDate)
+	RootCmd := resto.Execute(cmdFactory, version, buildDate)
 
 	if cmd, err := RootCmd.ExecuteC(); err != nil {
 		if err == tools.SilentError {
