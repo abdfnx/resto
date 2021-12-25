@@ -40,7 +40,7 @@ jobs:
         run: go run ./build/date.go >> date.txt
 
       - name: Build
-        run: VersionDate="$(cat date.txt)" AuthorName="${{ env.GITHUB_ACTIONS_NAME }}" AuthorEmail="${{ env.GITHUB_ACTIONS_EMAIL }}" goreleaser release --rm-dist --timeout 100m
+        run: VersionDate="$(cat date.txt)" goreleaser release --rm-dist --timeout 100m
         
       - name: Setup `Node.js`
         uses: actions/setup-node@v2.5.0
