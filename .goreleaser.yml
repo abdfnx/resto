@@ -77,11 +77,11 @@ brews:
     tap:
       owner: abdfnx
       name: homebrew-tap
-    commit_author:
-      name: "{{ .Env.AuthorName }}"
-      email: "{{ .Env.AuthorEmail }}"
     homepage: "https://github.com/abdfnx/resto"
     description: "a CLI app can send pretty HTTP & API requests with TUI"
 
 checksum:
   name_template: "checksums.txt"
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
