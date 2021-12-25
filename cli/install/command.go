@@ -18,6 +18,7 @@ import (
 func InstallCMD() *cobra.Command {
 	opts := options.InstallCommandOptions{
 		Shell: "",
+		IsHidden: false,
 		URL: "",
 	}
 
@@ -50,6 +51,7 @@ func InstallCMD() *cobra.Command {
 	}
 
 	cmd.Flags().StringVarP(&opts.Shell, "shell", "s", "", "shell to use (Default: " + p + ")")
+	cmd.Flags().BoolVarP(&opts.IsHidden, "hidden", "H", false, "hide the output")
 
 	return cmd
 }
@@ -94,7 +96,9 @@ func runInstall(opts *options.InstallCommandOptions) error {
 
 	s.Stop()
 
-	fmt.Print("\n\n" + out)
+	if !opts.IsHidden {
+		fmt.Println(out)
+	}
 
 	return nil
 }

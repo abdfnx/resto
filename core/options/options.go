@@ -24,8 +24,9 @@ type CLIOptions struct {
 }
 
 type InstallCommandOptions struct {
-	Shell string
-	URL   string
+	Shell    string
+	IsHidden bool
+	URL      string
 }
 
 type RunCommandOptions struct {
