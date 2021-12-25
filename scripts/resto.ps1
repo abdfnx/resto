@@ -38,6 +38,6 @@ if (Test-Path -path $loc) {
     Write-Host "Thanks for installing Resto! Refresh your powershell" -ForegroundColor DarkGreen
     Write-Host "If this is your first time using the CLI, be sure to run 'resto --help' first." -ForegroundColor DarkGreen
 } else {
-    Write-Host "Download failed"
-    Write-Host "Please try again later"
+    Write-Host "Download failed" -ForegroundColor Red
+    Write-Host "Please try again later" -ForegroundColor Red
 }

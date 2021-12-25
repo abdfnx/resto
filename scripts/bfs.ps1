@@ -19,5 +19,5 @@ Move-Item resto.exe -Destination $BIN
 if (Test-Path -path $loc) {
     Write-Host "Resto was built successfully, refresh your powershell and then run 'resto --help'" -ForegroundColor DarkGreen
 } else {
-    Write-Host "Build failed"
+    Write-Host "Build failed" -ForegroundColor Red
 }
