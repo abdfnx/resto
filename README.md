@@ -150,6 +150,7 @@ iwr -useb https://git.io/resto-win | iex
 3. `install` command flags
 
   ```
+  -H, --hidden         hide the output
   -s, --shell string   shell to use default: bash
   ```
   
@@ -176,4 +177,4 @@ iwr -useb https://git.io/resto-win | iex
 
 ## Documentation
 
-Refer to [**resto website**](https://resto.web.app) for the documentation. Or you can check out the [**Wiki**](https://github.com/abdfnx/resto/wiki).
+Refer to our [**Wiki**](https://github.com/abdfnx/resto/wiki) for the documentation.
