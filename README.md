@@ -1,7 +1,5 @@
-<h1 align="center">Resto</h1>
-
 <p align="center">
-  <img src="./.github/assets/logo.svg" height="150px" />
+  <img src="./.github/assets/logo.svg" height="120px" />
 </p>
 
 > a CLI app can send pretty HTTP & API requests with TUI.
