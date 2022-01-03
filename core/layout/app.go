@@ -15,6 +15,7 @@ import (
 	tcell "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 	"github.com/tidwall/pretty"
+	"github.com/tidwall/gjson"
 )
 
 var (
@@ -37,11 +38,18 @@ var (
 	headersCount    int = 0
 )
 
-func Layout() {
+func Layout(version string) {
 	app := tview.NewApplication()
 	flex := tview.NewFlex()
 	helpPage := tview.NewPages()
 	helpText := tview.NewTextView().
+		SetDynamicColors(true).
+		SetRegions(true).
+		SetChangedFunc(func() {
+			app.Draw()
+		})
+	updatePage := tview.NewPages()
+	updateText := tview.NewTextView().
 		SetDynamicColors(true).
 		SetRegions(true).
 		SetChangedFunc(func() {
@@ -57,15 +65,35 @@ func Layout() {
 			- Ctrl+P: Open Resto Panel
 			- Ctrl+H: Open Help Guide
 			- Ctrl+S: Save Request Body
+			- Ctrl+U: Update Your Resto
 			- Ctrl+Q: Quit
 	`
 
+	update := `
+		How to update Resto?
+
+		first quit from Resto, then:
+
+		1. if you install it from script, then run the script again to update
+		2. if you install it from homebrew, then run 'brew upgrade resto' to update
+		3. do you install resto from go install, run 'go get -u github.com/abdfnx/resto' to update
+		4. do you get it from github cli, run 'gh extension upgrade abdfnx/resto' to upgrade
+	`
+
 	fmt.Fprintf(helpText, "%s ", help)
+	fmt.Fprintf(updateText, "%s ", update)
 
 	helpPage.AddAndSwitchToPage("help", tview.NewGrid().
 		SetColumns(30, 0, 30).
 		SetRows(3, 0, 3).
 		AddItem(helpText, 1, 1, 1, 1, 0, 0, true), true).
+	ShowPage("main")
+
+	updatePage.AddAndSwitchToPage("update", tview.NewGrid().
+		SetRows(3, 0, 3).
+		SetColumns(30, 0, 30).
+		SetBorders(true).
+		AddItem(updateText, 1, 1, 1, 1, 0, 0, false), true).
 	ShowPage("main")
 
 	// forms
@@ -437,30 +465,88 @@ func Layout() {
 	responseView.SetTitle("Response").SetTitleAlign(tview.AlignCenter)
 	statusView.SetTitle("Status").SetTitleAlign(tview.AlignCenter)
 
-	if err := app.
-		EnableMouse(true).
-		SetRoot(flex, true).
-		SetFocus(requestForm).
-		Sync().
-		SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-			switch event.Key() {
-				case tcell.KeyCtrlP:
-					app.SetRoot(panelModal, true).SetFocus(panelModal)
-					return nil
+	newReleaseModal := tview.NewModal()
 
-				case tcell.KeyCtrlH:
-					app.SetRoot(helpPage, true).SetFocus(helpPage)
-					return nil
+	if version != api.GetLatest() && gjson.Get(tools.SettingsContent(), "rs_settings.show_update").String() != "false" {
+		newReleaseModal.SetText("There's a new version of resto is avalaible: " + version + " → " + api.GetLatest()).
+			AddButtons([]string{"How to Update ?", "Don't show again", "Cancel"}).
+			SetDoneFunc(func(buttonIndex int, buttonLabel string) {
+				if buttonLabel == "How to Update ?" {
+					app.SetRoot(updatePage, true).SetFocus(updatePage)
+				} else if buttonLabel == "Don't show again" {
+					tools.UpdateSettings("false")
+					app.SetRoot(flex, true).SetFocus(requestForm)
+				} else if buttonLabel == "Cancel" {
+					app.SetRoot(flex, true).SetFocus(requestForm)
+				}
+			})
 
-				case tcell.KeyCtrlQ:
-					app.Stop()
-					return nil
-			}
+		if err := app.
+			EnableMouse(true).
+			SetRoot(newReleaseModal, true).
+			SetFocus(newReleaseModal).
+			Sync().
+			SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+				switch event.Key() {
+					case tcell.KeyCtrlP:
+						app.SetRoot(panelModal, true).SetFocus(panelModal)
+						return nil
 
-			return event
-		}).
-		Run();
-	err != nil {
-		panic(err)
+					case tcell.KeyCtrlH:
+						app.SetRoot(helpPage, true).SetFocus(helpPage)
+						return nil
+
+					case tcell.KeyCtrlU:
+						app.SetRoot(newReleaseModal, true).SetFocus(newReleaseModal)
+
+					case tcell.KeyCtrlQ:
+						app.Stop()
+						return nil
+				}
+
+				return event
+			}).
+			Run();
+		err != nil {
+			panic(err)
+		}
+	} else {
+		newReleaseModal.SetText("All good, you're using the latest version of resto 👊").
+			AddButtons([]string{"Ok"}).
+			SetDoneFunc(func(buttonIndex int, buttonLabel string) {
+				if buttonLabel == "Ok" {
+					app.SetRoot(flex, true).SetFocus(requestForm)
+				}
+			})
+
+		if err := app.
+			EnableMouse(true).
+			SetRoot(flex, true).
+			SetFocus(requestForm).
+			Sync().
+			SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+				switch event.Key() {
+					case tcell.KeyCtrlP:
+						app.SetRoot(panelModal, true).SetFocus(panelModal)
+						return nil
+
+					case tcell.KeyCtrlH:
+						app.SetRoot(helpPage, true).SetFocus(helpPage)
+						return nil
+
+					case tcell.KeyCtrlU:
+						app.SetRoot(newReleaseModal, true).SetFocus(newReleaseModal)
+
+					case tcell.KeyCtrlQ:
+						app.Stop()
+						return nil
+				}
+
+				return event
+			}).
+			Run();
+		err != nil {
+			panic(err)
+		}
 	}
 }

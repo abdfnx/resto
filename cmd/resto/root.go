@@ -7,7 +7,7 @@ import (
 	"github.com/abdfnx/resto/core/layout"
 	"github.com/abdfnx/resto/cmd/factory"
 	"github.com/abdfnx/resto/cli"
-	"github.com/abdfnx/resto/cli/install"
+	installCmd "github.com/abdfnx/resto/cli/install"
 	runCmd "github.com/abdfnx/resto/cli/run"
 
 	"github.com/MakeNowJust/heredoc"
@@ -61,7 +61,9 @@ func Execute(f *factory.Factory, version string, buildDate string) *cobra.Comman
 			`),
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return run()
+			layout.Layout(version)
+
+			return nil
 		},
 	}
 
@@ -96,17 +98,11 @@ func Execute(f *factory.Factory, version string, buildDate string) *cobra.Comman
 		cli.PatchCMD(),
 		cli.DeleteCMD(),
 		cli.HeadCMD(),
-		install_cmd.InstallCMD(),
+		installCmd.InstallCMD(),
 		runCmd.RunCMD(),
 		cli.GetLatestCMD(),
 		versionCmd,
 	)
 
 	return rootCmd
-}
-
-func run() error {
-	layout.Layout()
-
-	return nil
 }

@@ -8,6 +8,7 @@ import (
 
 	"github.com/abdfnx/resto/cmd/resto"
 	"github.com/abdfnx/resto/cmd/factory"
+	"github.com/abdfnx/resto/core/checker"
 	"github.com/abdfnx/resto/tools"
 
 	surveyCore "github.com/AlecAivazis/survey/v2/core"
@@ -84,6 +85,10 @@ func mainRun() exitCode {
 
 	if resto.HasFailed() {
 		return exitError
+	}
+
+	if len(os.Args) > 1 && os.Args[1] != "resto" {
+		checker.Check(version, true)
 	}
 
 	return exitOK
