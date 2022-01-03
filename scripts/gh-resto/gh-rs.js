@@ -6,7 +6,7 @@ const mkdirp = require("mkdirp");
 const sh = require("shelljs");
 
 const VERSION_CMD = sh.exec("git describe --abbrev=0 --tags");
-const VERSION_DATE_CMD = sh.exec("go run ./build/date.go");
+const VERSION_DATE_CMD = sh.exec("go run ./scripts/date.go");
 
 const VERSION = VERSION_CMD.replace("\n", "").replace("\r", "");
 const VERSION_DATE = VERSION_DATE_CMD.replace("\n", "").replace("\r", "");
