@@ -9,6 +9,7 @@ import (
 	"github.com/abdfnx/resto/cli"
 	installCmd "github.com/abdfnx/resto/cli/install"
 	runCmd "github.com/abdfnx/resto/cli/run"
+	"github.com/abdfnx/resto/cli/settings"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
@@ -101,6 +102,7 @@ func Execute(f *factory.Factory, version string, buildDate string) *cobra.Comman
 		installCmd.InstallCMD(),
 		runCmd.RunCMD(),
 		cli.GetLatestCMD(),
+		settings.SettingsCMD(),
 		versionCmd,
 	)
 
