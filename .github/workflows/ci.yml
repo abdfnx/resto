@@ -125,7 +125,7 @@ jobs:
           install-only: true
 
       - name: Set up `Date`
-        run: go run ./build/date.go >> date.txt
+        run: go run ./scripts/date.go >> date.txt
 
       - name: Build
         run: BuildDate="$(cat date.txt)" goreleaser release --snapshot --rm-dist --timeout 100m

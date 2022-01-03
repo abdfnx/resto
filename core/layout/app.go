@@ -41,14 +41,16 @@ var (
 func Layout(version string) {
 	app := tview.NewApplication()
 	flex := tview.NewFlex()
+
 	helpPage := tview.NewPages()
+	updatePage := tview.NewPages()
+
 	helpText := tview.NewTextView().
 		SetDynamicColors(true).
 		SetRegions(true).
 		SetChangedFunc(func() {
 			app.Draw()
 		})
-	updatePage := tview.NewPages()
 	updateText := tview.NewTextView().
 		SetDynamicColors(true).
 		SetRegions(true).
@@ -64,6 +66,7 @@ func Layout(version string) {
 		Shortcuts:
 			- Ctrl+P: Open Resto Panel
 			- Ctrl+H: Open Help Guide
+			- Ctrl+E: Open Settings
 			- Ctrl+S: Save Request Body
 			- Ctrl+U: Update Your Resto
 			- Ctrl+Q: Quit
@@ -140,9 +143,25 @@ func Layout(version string) {
 		log.Fatalf("could not read %v: %v", fn, err)
 	}
 
+	settingsContent, err := ioutil.ReadFile(tools.SettingsFile())
+	bufferSettings := editor.NewBufferFromString(string(settingsContent), tools.SettingsFile())
+	if err != nil {
+		log.Fatalf("could not read %v: %v", tools.SettingsFile(), err)
+	}
+
 	var colorscheme editor.Colorscheme
-	if railscast := runtime.Files.FindFile(editor.RTColorscheme, "railscast"); railscast != nil {
-		if data, err := railscast.Data(); err == nil {
+
+	vs := gjson.Get(tools.SettingsContent(), "rs_settings.request_body.theme")
+	tm := ""
+
+	if vs.Exists() {
+		tm = vs.String()
+	} else {
+		tm = "railscast"
+	}
+
+	if theme := runtime.Files.FindFile(editor.RTColorscheme, tm); theme != nil {
+		if data, err := theme.Data(); err == nil {
 			colorscheme = editor.ParseColorscheme(string(data))
 		}
 	}
@@ -154,6 +173,20 @@ func Layout(version string) {
 		switch event.Key() {
 			case tcell.KeyCtrlS:
 				tools.SaveBuffer(buffer, fn)
+				app.SetRoot(flex, true).SetFocus(requestForm)
+				return nil
+		}
+
+		return event
+	})
+
+	settingsEditor := editor.NewView(bufferSettings)
+	settingsEditor.SetRuntimeFiles(runtime.Files)
+	settingsEditor.SetColorscheme(colorscheme)
+	settingsEditor.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		switch event.Key() {
+			case tcell.KeyCtrlS:
+				tools.SaveBuffer(bufferSettings, tools.SettingsFile())
 				app.SetRoot(flex, true).SetFocus(requestForm)
 				return nil
 		}
@@ -499,6 +532,10 @@ func Layout(version string) {
 					case tcell.KeyCtrlU:
 						app.SetRoot(newReleaseModal, true).SetFocus(newReleaseModal)
 
+					case tcell.KeyCtrlE:
+						app.SetRoot(settingsEditor, true).SetFocus(settingsEditor)
+						return nil
+
 					case tcell.KeyCtrlQ:
 						app.Stop()
 						return nil
@@ -536,6 +573,10 @@ func Layout(version string) {
 
 					case tcell.KeyCtrlU:
 						app.SetRoot(newReleaseModal, true).SetFocus(newReleaseModal)
+
+					case tcell.KeyCtrlE:
+						app.SetRoot(settingsEditor, true).SetFocus(settingsEditor)
+						return nil
 
 					case tcell.KeyCtrlQ:
 						app.Stop()

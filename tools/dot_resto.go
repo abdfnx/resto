@@ -31,6 +31,7 @@ func Files() {
 
 	if _, err := os.Stat(settingsFile); os.IsNotExist(err) {
 		os.Create(settingsFile)
+		SetDefaultSettings()
 	}
 
 	if _, err := os.Stat(cliDir); os.IsNotExist(err) {
