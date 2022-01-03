@@ -25,7 +25,7 @@ jobs:
     - name: Building From Source
       run: |
         go mod tidy
-        go run ./build/date.go >> date.txt
+        go run ./scripts/date.go >> date.txt
         go build -ldflags "-X main.version=$(git describe --abbrev=0 --tags) -X main.buildDate=$(cat date.txt)" -o resto
 
     - name: Run `Restofile`

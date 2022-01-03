@@ -1,7 +1,7 @@
 .PHONY: build
 
 TAG=$(shell git describe --abbrev=0 --tags)
-DATE=$(shell go run ./build/date.go)
+DATE=$(shell go run ./scripts/date.go)
 
 build:
 		@go mod tidy && \
