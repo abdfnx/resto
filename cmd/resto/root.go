@@ -55,6 +55,9 @@ func Execute(f *factory.Factory, version string, buildDate string) *cobra.Comman
 
 			# Get the latest release/tag of a repository (github, gitlab, bitbucket)
 			resto get-latest microsoft/vscode
+
+			# Update resto settings
+			resto settings set theme dracula
 		`),
 		Annotations: map[string]string{
 			"help:tellus": heredoc.Doc(`

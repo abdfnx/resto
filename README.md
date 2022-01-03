@@ -170,7 +170,9 @@ iwr -useb https://git.io/resto-win | iex
 
 - <kbd>Ctrl+P</kbd>: **Open Resto Panel**
 - <kbd>Ctrl+H</kbd>: **Open Help Guide**
+- <kbd>Ctrl+E</kbd>: **Open Settings**
 - <kbd>Ctrl+S</kbd>: **Save Request Body**
+- <kbd>Ctrl+U</kbd>: **Update Your Resto**
 - <kbd>Ctrl+Q</kbd>: **Quit**
 
 ## Documentation
