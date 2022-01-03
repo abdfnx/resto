@@ -20,6 +20,7 @@ func Check(buildVersion string, isCmd bool) {
 	isFromGo := isUnderGo()
 	isFromUsrBinDir := isUnderUsr()
 	isFromGHCLI := isUnderGHCLI()
+	isFromAppData := isUnderAppData()
 
 	var command = func() string {
 		if isFromHomebrewTap {
@@ -30,6 +31,8 @@ func Check(buildVersion string, isCmd bool) {
 			return "curl -fsSL https://git.io/resto | bash"
 		} else if isFromGHCLI {
 			return "gh extention upgrade resto"
+		} else if isFromAppData {
+			return "iwr -useb https://git.io/resto-win | iex"
 		}
 
 		return ""
@@ -61,6 +64,10 @@ func isUnderGo() bool {
 
 func isUnderUsr() bool {
 	return strings.Contains(restoExe, "usr")
+}
+
+func isUnderAppData() bool {
+	return strings.Contains(restoExe, "AppData")
 }
 
 func isUnderGHCLI() bool {
