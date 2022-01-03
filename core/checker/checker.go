@@ -4,14 +4,16 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/abdfnx/resto/cmd/factory"
+	"github.com/abdfnx/resto/tools"
 	"github.com/abdfnx/resto/core/api"
+	"github.com/abdfnx/resto/cmd/factory"
 
 	"github.com/mgutz/ansi"
+	"github.com/tidwall/gjson"
 	tcexe "github.com/Timothee-Cardoso/tc-exe"
 )
 
-func Check(buildVersion string, isCmd bool) {
+func Check(buildVersion string) {
 	cmdFactory := factory.New()
 	stderr := cmdFactory.IOStreams.ErrOut
 
@@ -38,16 +40,14 @@ func Check(buildVersion string, isCmd bool) {
 		return ""
 	}
 
-	if buildVersion != latestVersion {
-		if isCmd {
-			fmt.Fprintf(stderr, "\n%s %s → %s\n",
-			ansi.Color("There's a new version of ", "yellow") + ansi.Color("resto", "cyan") + ansi.Color(" is avalaible:", "yellow"),
-			ansi.Color(buildVersion, "cyan"),
-			ansi.Color(latestVersion, "cyan"))
+	if buildVersion != latestVersion && gjson.Get(tools.SettingsContent(), "rs_settings.show_update").Bool() != false {
+		fmt.Fprintf(stderr, "\n%s %s → %s\n",
+		ansi.Color("There's a new version of ", "yellow") + ansi.Color("resto", "cyan") + ansi.Color(" is avalaible:", "yellow"),
+		ansi.Color(buildVersion, "cyan"),
+		ansi.Color(latestVersion, "cyan"))
 
-			if command() != "" {
-				fmt.Fprintf(stderr, ansi.Color("To upgrade, run: %s\n", "yellow"), ansi.Color(command(), "black:white"))
-			}
+		if command() != "" {
+			fmt.Fprintf(stderr, ansi.Color("To upgrade, run: %s\n", "yellow"), ansi.Color(command(), "black:white"))
 		}
 	}
 }

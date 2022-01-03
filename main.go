@@ -88,7 +88,7 @@ func mainRun() exitCode {
 	}
 
 	if len(os.Args) > 1 && os.Args[1] != "resto" {
-		checker.Check(version, true)
+		checker.Check(version)
 	}
 
 	return exitOK

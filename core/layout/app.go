@@ -500,14 +500,20 @@ func Layout(version string) {
 
 	newReleaseModal := tview.NewModal()
 
-	if version != api.GetLatest() && gjson.Get(tools.SettingsContent(), "rs_settings.show_update").String() != "false" {
+	enableMouse := gjson.Get(tools.SettingsContent(), "rs_settings.enable_mouse").Bool()
+
+	if enableMouse {
+		app.EnableMouse(true)
+	}
+
+	if version != api.GetLatest() && gjson.Get(tools.SettingsContent(), "rs_settings.show_update").Bool() != false {
 		newReleaseModal.SetText("There's a new version of resto is avalaible: " + version + " → " + api.GetLatest()).
 			AddButtons([]string{"How to Update ?", "Don't show again", "Cancel"}).
 			SetDoneFunc(func(buttonIndex int, buttonLabel string) {
 				if buttonLabel == "How to Update ?" {
 					app.SetRoot(updatePage, true).SetFocus(updatePage)
 				} else if buttonLabel == "Don't show again" {
-					tools.UpdateSettings("false")
+					tools.UpdateSettings(false)
 					app.SetRoot(flex, true).SetFocus(requestForm)
 				} else if buttonLabel == "Cancel" {
 					app.SetRoot(flex, true).SetFocus(requestForm)
@@ -515,7 +521,6 @@ func Layout(version string) {
 			})
 
 		if err := app.
-			EnableMouse(true).
 			SetRoot(newReleaseModal, true).
 			SetFocus(newReleaseModal).
 			Sync().
@@ -557,7 +562,6 @@ func Layout(version string) {
 			})
 
 		if err := app.
-			EnableMouse(true).
 			SetRoot(flex, true).
 			SetFocus(requestForm).
 			Sync().

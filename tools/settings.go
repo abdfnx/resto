@@ -16,7 +16,7 @@ func SettingsContent() string {
 	return string(stgFile)
 }
 
-func UpdateSettings(value string) {
+func UpdateSettings(value bool) {
 	settings, _ := sjson.Set(settingsFile, "rs_settings.show_update", value)
 
 	prettySettings := pretty.Pretty([]byte(settings))
@@ -32,8 +32,8 @@ func SetDefaultSettings() {
 	defaultSettings := `
 		{
 			"rs_settings": {
-				"show_update": "true"
-				"enable_mouse": "true"
+				"show_update": true
+				"enable_mouse": true
 				"request_body": {
 					"theme": "railscast"
 				}
