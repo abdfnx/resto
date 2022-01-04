@@ -51,7 +51,7 @@ RUN zsh && \
 RUN sudo rm -rf $src
 
 ### wget new files ###
-RUN wget https://docker.secman.dev/resto/.zshrc
-RUN wget https://docker.secman.dev/resto/README
+RUN wget https://abdfnx.github.io/resto/scripts/shell/zshrc -o $src
+RUN wget https://abdfnx.github.io/resto/scripts/shell/resto/README
 
 CMD /bin/bash -c "cat README && zsh"
