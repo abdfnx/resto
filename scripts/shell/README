@@ -1,0 +1,9 @@
+Welcome to Resto 👋
+
+you can do your first steps
+
+- `$ resto`
+- `$ resto get https://api.secman.dev`
+- `$ resto post https://api.spacex.land -c graphql --editor`
+
+run `resto -h` for get help 📄
