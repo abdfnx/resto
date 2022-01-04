@@ -66,7 +66,7 @@ nfpms:
     homepage: https://github.com/abdfnx/resto
     bindir: /usr
     file_name_template: "{{ .ProjectName }}_v{{ .Version }}_{{ .Arch }}"
-    description: a CLI app can send pretty HTTP & API requests with TUI
+    description: "🔗 a CLI app can send pretty HTTP & API requests with TUI"
     formats:
       - apk
       - deb
@@ -78,7 +78,7 @@ brews:
       owner: abdfnx
       name: homebrew-tap
     homepage: "https://github.com/abdfnx/resto"
-    description: "a CLI app can send pretty HTTP & API requests with TUI"
+    description: "🔗 a CLI app can send pretty HTTP & API requests with TUI"
 
 checksum:
   name_template: "checksums.txt"
