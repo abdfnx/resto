@@ -2,12 +2,14 @@ package api
 
 import (
 	"fmt"
+	"time"
 	"io/ioutil"
 	"net/http"
 
 	httpClient "github.com/abdfnx/resto/client"
 
 	"github.com/tidwall/gjson"
+	"github.com/briandowns/spinner"
 )
 
 func GetLatest() string {
@@ -18,6 +20,10 @@ func GetLatest() string {
 	if err != nil {
 		fmt.Errorf("Error creating request: %s", err.Error())
 	}
+
+	s := spinner.New(spinner.CharSets[11], 100*time.Millisecond)
+	s.Suffix = " 🔍 Checking for updates..."
+	s.Start()
 
 	client := httpClient.HttpClient()
 	res, err := client.Do(req)
@@ -39,6 +45,8 @@ func GetLatest() string {
 	tag_name := gjson.Get(body, "tag_name")
 
 	latestVersion := tag_name.String()
+
+	s.Stop()
 
 	return latestVersion
 }

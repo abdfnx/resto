@@ -41,7 +41,7 @@ func Check(buildVersion string) {
 	}
 
 	if buildVersion != latestVersion && gjson.Get(tools.SettingsContent(), "rs_settings.show_update").Bool() != false {
-		fmt.Fprintf(stderr, "\n%s %s → %s\n",
+		fmt.Fprintf(stderr, "%s %s → %s\n",
 		ansi.Color("There's a new version of ", "yellow") + ansi.Color("resto", "cyan") + ansi.Color(" is avalaible:", "yellow"),
 		ansi.Color(buildVersion, "cyan"),
 		ansi.Color(latestVersion, "cyan"))
