@@ -10,7 +10,7 @@ import (
 
 	"github.com/mgutz/ansi"
 	"github.com/tidwall/gjson"
-	tcexe "github.com/Timothee-Cardoso/tc-exe"
+	"github.com/abdfnx/looker"
 )
 
 func Check(buildVersion string) {
@@ -52,7 +52,7 @@ func Check(buildVersion string) {
 	}
 }
 
-var restoExe, _ = tcexe.LookPath("resto")
+var restoExe, _ = looker.LookPath("resto")
 
 func isUnderHomebrew() bool {
 	return strings.Contains(restoExe, "brew")

@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.2
 	github.com/MakeNowJust/heredoc v1.0.0
-	github.com/Timothee-Cardoso/tc-exe v1.0.1
+	github.com/abdfnx/looker v0.1.0
 	github.com/atotto/clipboard v0.1.4
 	github.com/briandowns/spinner v1.18.0
 	github.com/gdamore/tcell/v2 v2.4.1-0.20210905002822-f057f0a857a1
