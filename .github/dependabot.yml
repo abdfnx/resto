@@ -1,3 +1,4 @@
+---
 version: 2
 updates:
   - package-ecosystem: "gomod"
@@ -6,3 +7,7 @@ updates:
       interval: "daily"
     reviewers:
       - abdfnx
+  - package-ecosystem: npm
+    directory: "/scripts/gh-resto"
+    schedule:
+      interval: "daily"
