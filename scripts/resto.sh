@@ -1,6 +1,14 @@
 #!/bin/bash
 
-restoPath=/usr/local/bin
+installPath=$1
+restoPath=""
+
+if [ $installPath != "" ]; then
+    restoPath=$installPath
+else
+    restoPath=/usr/local/bin
+fi
+
 UNAME=$(uname)
 ARCH=$(uname -m)
 
