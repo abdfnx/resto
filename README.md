@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./.github/assets/logo.svg" height="120px" />
+  <img src="https://raw.githubusercontent.com/abdfnx/resto/dev/.github/assets/logo.svg" height="120px" />
 </p>
 
 > a CLI app can send pretty HTTP & API requests with TUI.
