@@ -1,4 +1,4 @@
-FROM debian:11.2
+FROM debian:11
 
 ### variables ###
 ARG UPD="apt-get update"
