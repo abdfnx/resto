@@ -17,7 +17,7 @@ require (
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/muesli/reflow v0.3.0
-	github.com/muesli/termenv v0.11.0
+	github.com/muesli/termenv v0.12.0
 	github.com/pkg/errors v0.9.1
 	github.com/rivo/tview v0.0.0-20211202162923-2a6de950f73b
 	github.com/sergi/go-diff v1.2.0
@@ -28,7 +28,7 @@ require (
 	github.com/tidwall/sjson v1.2.4
 	github.com/yosssi/gohtml v0.0.0-20201013000340-ee4748c638f4
 	github.com/zyedidia/micro v1.4.1
-	golang.org/x/sys v0.0.0-20211210111614-af8b64212486
+	golang.org/x/sys v0.0.0-20220209214540-3681064d5158
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
 )
 
