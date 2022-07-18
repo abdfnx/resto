@@ -143,7 +143,7 @@ jobs:
 
     - name: Test it
       run: |
-        gh resto get https://api.secman.dev
+        gh resto get https://get-latest.herokuapp.com
         cat examples/spacex.gql | gh resto post https://api.spacex.land/graphql -c graphql --body-stdin
 
   homebrew:
